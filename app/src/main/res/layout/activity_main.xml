@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/BaseRelativeLayout"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 開始畫面 -->
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:src="@drawable/cover"
+               android:id="@+id/cover"
+               android:scaleType="centerCrop">
+
+    </ImageView>
+    <ImageButton android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/config"
+                 android:onClick="Config"
+                 android:layout_alignParentBottom="true"
+                 android:layout_alignParentRight="true">
+
+    </ImageButton>
+
+    <!-- 遊戲畫面 -->
+    <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:clipChildren="false"
+                    android:id="@+id/GameRelativeLayout">
+        <!-- 底圖 -->
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent">
+            <ImageView android:layout_width="5000dp"
+                       android:layout_height="3000dp"
+                       android:scaleType="centerCrop"
+                       android:id="@+id/bg"
+                       android:src="@drawable/map"
+                       android:padding="0sp">
+            </ImageView>
+        </LinearLayout>
+        <!-- 地圖板塊的底 -->
+        <RelativeLayout android:layout_width="2500dp"
+                        android:layout_height="1500dp"
+                        android:id="@+id/plateLayout"
+                        android:clipChildren="false">
+            <!-- 這裡裝地圖的板塊 -->
+
+        </RelativeLayout>
+        <!-- 我的角色 -->
+        <ImageView android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:gravity="center"
+                   android:layout_gravity="center"
+                   android:src="@drawable/dice"
+                   android:id="@+id/player1">
+        </ImageView>
+
+        <!-- 座標測試 -->
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/coor"
+                  android:background="@color/white">
+
+        </TextView>
+
+        <!-- 其他角色能力 -->
+        <!-- 1 -->
+        <ImageView android:layout_width="150dp"
+                   android:layout_height="70dp"
+                   android:src="@drawable/player_frame"
+                   android:layout_alignParentTop="true"
+                   android:scaleType="centerInside"
+                   android:id="@+id/one">
+
+        </ImageView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/oneMight"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="13dp"
+                  android:layout_marginLeft="35dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/oneSpeed"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="35dp"
+                  android:layout_marginLeft="35dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/oneSanity"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="13dp"
+                  android:layout_marginLeft="107dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/oneKnowledge"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="35dp"
+                  android:layout_marginLeft="107dp">
+
+        </TextView>
+        <!-- 2 -->
+        <ImageView android:layout_width="150dp"
+                   android:layout_height="70dp"
+                   android:src="@drawable/player_frame"
+                   android:layout_below="@id/one"
+                   android:scaleType="centerInside"
+                   android:id="@+id/two">
+
+        </ImageView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/twoMight"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="83dp"
+                  android:layout_marginLeft="35dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/twoSanity"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="83dp"
+                  android:layout_marginLeft="107dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/twoSpeed"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="105dp"
+                  android:layout_marginLeft="35dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/twoKnowledge"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="105dp"
+                  android:layout_marginLeft="107dp">
+
+        </TextView>
+        <!-- 3 -->
+        <ImageView android:layout_width="150dp"
+                   android:layout_height="70dp"
+                   android:src="@drawable/player_frame"
+                   android:layout_below="@id/two"
+                   android:scaleType="centerInside"
+                   android:id="@+id/three">
+
+        </ImageView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/threeMight"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="152dp"
+                  android:layout_marginLeft="35dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/threeSanity"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="152dp"
+                  android:layout_marginLeft="107dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/threeSpeed"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="175dp"
+                  android:layout_marginLeft="35dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/threeKnowledge"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="175dp"
+                  android:layout_marginLeft="107dp">
+
+        </TextView>
+        <!-- 4 -->
+        <ImageView android:layout_width="150dp"
+                   android:layout_height="70dp"
+                   android:src="@drawable/player_frame"
+                   android:layout_below="@id/three"
+                   android:scaleType="centerInside"
+                   android:id="@+id/four">
+
+        </ImageView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/fourMight"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="222dp"
+                  android:layout_marginLeft="35dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/fourSanity"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="222dp"
+                  android:layout_marginLeft="107dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/fourSpeed"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="245dp"
+                  android:layout_marginLeft="35dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/fourKnowledge"
+                  android:textSize="18dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="245dp"
+                  android:layout_marginLeft="107dp">
+
+        </TextView>
+
+        <!-- 其他角色人物 -->
+        <!-- 2 -->
+        <ImageView android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:gravity="center"
+                   android:layout_gravity="center"
+                   android:id="@+id/player2">
+        </ImageView>
+        <!-- 3 -->
+        <ImageView android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:gravity="center"
+                   android:layout_gravity="center"
+                   android:id="@+id/player3">
+        </ImageView>
+        <!-- 4 -->
+        <ImageView android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:gravity="center"
+                   android:layout_gravity="center"
+                   android:id="@+id/player4">
+        </ImageView>
+        <!-- 5 -->
+        <ImageView android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:gravity="center"
+                   android:layout_gravity="center"
+                   android:id="@+id/player5">
+        </ImageView>
+
+        <!-- 我的人物狀態列 -->
+        <ImageView android:layout_width="match_parent"
+                   android:layout_height="110dp"
+                   android:id="@+id/attributes"
+                   android:src="@drawable/attributes1"
+                   android:scaleType="centerCrop"
+                   android:layout_alignParentBottom="true"
+                   android:paddingBottom="90dp">
+
+        </ImageView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/myMight"
+                  android:textSize="30dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="312dp"
+                  android:layout_marginLeft="310dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/mySanity"
+                  android:textSize="30dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="313dp"
+                  android:layout_marginLeft="400dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/myKnowledge"
+                  android:textSize="30dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="348dp"
+                  android:layout_marginLeft="400dp">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/mySpeed"
+                  android:textSize="30dp"
+                  android:textColor="#bdb76b"
+                  android:textStyle="bold"
+                  android:layout_marginTop="348dp"
+                  android:layout_marginLeft="310dp">
+
+        </TextView>
+
+        <!-- 搖桿 -->
+        <com.example.baldursgate.JoystickView android:layout_width="150dp"
+                                              android:layout_height="150dp"
+                                              android:id="@+id/joystick"
+                                              android:background="@android:color/transparent"
+                                              android:layout_alignParentBottom="true"
+                                              android:layout_marginBottom="0dp">
+
+        </com.example.baldursgate.JoystickView>
+        <com.example.baldursgate.JoystickView android:layout_width="150dp"
+                                              android:layout_height="150dp"
+                                              android:id="@+id/joystick2"
+                                              android:background="@android:color/transparent"
+                                              android:layout_alignParentBottom="true"
+                                              android:layout_alignParentRight="true">
+
+        </com.example.baldursgate.JoystickView>
+
+        <!-- 視角歸位按鈕 -->
+        <Button android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:onClick="GoBack">
+
+        </Button>
+
+        <!-- 回合結束按鈕 -->
+        <Button android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="回合結束"
+                android:textSize="16dp"
+                android:layout_above="@id/joystick2"
+                android:layout_alignParentRight="true"
+                android:id="@+id/roundOver"
+                android:onClick="roundOver">
+
+        </Button>
+        <!-- 骰子按鈕 -->
+        <ImageButton android:layout_width="100dp"
+                     android:layout_height="100dp"
+                     android:src="@drawable/dice"
+                     android:scaleType="centerCrop"
+                     android:layout_toLeftOf="@id/joystick2"
+                     android:layout_marginBottom="180dp"
+                     android:onClick="diceRoll" android:layout_alignParentBottom="true">
+
+        </ImageButton>
+        <!-- 包包按鈕 -->
+        <ImageButton android:layout_width="50dp"
+                     android:layout_height="50dp"
+                     android:src="@drawable/items"
+                     android:scaleType="centerCrop"
+                     android:background="@android:color/transparent"
+                     android:onClick="backpack"
+                     android:id="@+id/backpack"
+                     android:layout_above="@id/attributes" android:layout_marginBottom="21dp"
+                     android:layout_toRightOf="@id/joystick">
+
+        </ImageButton>
+    </RelativeLayout>
+</RelativeLayout>
