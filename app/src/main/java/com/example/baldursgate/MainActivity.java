@@ -26,32 +26,43 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     ImageView bg;                       // 底圖
     RelativeLayout PlateLayout;         // 裝板塊的
     ImageView[][] Plate;                // 板塊
-    ImageView player;                    // 玩家(之後換成imageView)
+    ImageView[] role;                   // 玩家角色 (取代player)
+    TextView population;                // 顯示玩家數
+
+    TextView coor,coor1;
 
     // 遊戲角色屬性變數
-    int myClientID;             // client號
-    int characterID;            // 角色號
+    int myClientID = 0;         // client號
     int x, y;                   // 角色位移
     int visionX=0, visionY=0;   // 視野範圍
     int abVisionX, abVisionY;   // 視野座標
-    int abX=1875, abY=1125;     // 角色絕對座標 (單位:DP) 600dp/plate (0,0)=>(-5740, -3500)
     int plateX, plateY;         // 角色所在的板塊
 
+    // 玩家們的 XY 座標   *****角色絕對座標 (單位:DP) 600dp/plate (0,0)=>(-7220, -4500)*****
+    int[] playerX = { 100 ,100 ,100 ,100 ,100 ,100 };
+    int[] playerY = {-100,-100,-100,-100,-100,-100 };
+
     // 遊戲變數
-    int numberOfPlayer = 1;     // 玩家數量
+    int gameStart = 0;                  // 遊戲開始了嗎？
+    int numberOfPlayer = 1;             // 玩家數量
+    int[] characterIndex = new int[6];  // 角色代號
+    boolean myRound = false;            // 是我的回合嗎？
+    int roundOver = 2;                  // 回合結束了嗎 (0: 我的回合還沒結束, 1:我的回合結束了, 2:不是我的回合，郭?)
 
     // 連線物件
-    Socket clientSocket;    //客戶端的socket
-    PrintWriter out;        //取得網路輸出串流
-    BufferedReader in;      //取得網路輸入串流
-    String msgFromServer;   //要接收的訊息
-    String msgToServer;     //要發出的訊息
+    Socket clientSocket;        //客戶端的socket
+    PrintWriter out;            //取得網路輸出串流
+    BufferedReader in;          //取得網路輸入串流
+    String msgFromServer = "";  //要接收的訊息
+    String msgToServer;         //要發出的訊息
     static String SERVER_IP;
     static int SERVER_PORT;
 
+    // DP 單位換算
     int TransDP(int n){
         return n*(int)this.getResources().getDisplayMetrics().density;
     }
+    int TransPX(int n) { return n/(int)this.getResources().getDisplayMetrics().density;}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +80,14 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         GameRelativeLayout.setVisibility(View.GONE);
 
 
+
         // 遊戲畫面
         PlateLayout = findViewById(R.id.plateLayout);
         bg = findViewById(R.id.bg);
         Plate = new ImageView[25][15];
-        player = findViewById(R.id.player1);
+
+        coor = findViewById(R.id.coor);
+        coor1 = findViewById(R.id.coor1);
 
         // 設定DP->SP單位換算大小
         int dp = TransDP(150);
@@ -84,54 +98,74 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         for(int i=0;i<25;i++){
             for(int j=0;j<15;j++){
                 Plate[i][j] = new ImageView(this);
-                Plate[i][j].setTranslationX(dp*i +500);
-                Plate[i][j].setTranslationY(dp*j +500); // 預設圖片
+                Plate[i][j].setTranslationX(dp *i +500);
+                Plate[i][j].setTranslationY(dp *j +500); // 預設圖片
                 Plate[i][j].setLayoutParams(params);
                 Plate[i][j].setImageResource(R.drawable.assassin);
                 PlateLayout.addView(Plate[i][j]);
             }
         }
 
-        // 玩家 初始位置 & 視角 在地圖中央
-        player.setTranslationX(dp *1*12.5f + 500);
-        player.setTranslationY(dp *1*7.5f + 500);
-        abVisionX = (int)(dp*1*12.5f + 500);
-        abVisionY = (int)(dp*1*7.5f + 500);
-        // 移動視角
-        player.setTranslationX((int)player.getX()-visionX - dp *1.2f*12.5f + 500);
-        player.setTranslationY((int)player.getY()-visionY - dp *1.2f*9f + 500);
+        // 初始化玩家角色
+        role = new ImageView[6];
+        for(int i = 0;i<6;i++)
+            role[i] = new ImageView(this);
+
+        role[1] = findViewById(R.id.role1);
+        role[2] = findViewById(R.id.role2);
+        role[3] = findViewById(R.id.role3);
+        role[4] = findViewById(R.id.role4);
+        role[5] = findViewById(R.id.role5);
+
+        // 角色數量不超過玩家數
+        for(int i=5;i>0;i--){
+            if(i>numberOfPlayer)
+                role[i].setVisibility(View.GONE);
+        }
+        // 玩家初始位置在地圖中央
+        for(int i = 1;i<6;i++) {
+            role[i].setTranslationX(playerX[i]);
+            role[i].setTranslationY(playerY[i]);
+        }
+
+        // 視角初始位置在地圖中央 (待補)
         bg.setTranslationX((int)bg.getX()-visionX - dp *1.2f*12.5f + 500);
         bg.setTranslationY((int)bg.getY()-visionY - dp *1.2f*9f + 500);
         PlateLayout.setTranslationX((int) PlateLayout.getX()-visionX - dp *1.2f*12.5f + 500);
         PlateLayout.setTranslationY((int) PlateLayout.getY()-visionY - dp *1.2f*9f + 500);
-        abVisionX = (int)(abVisionX-visionX-(int)dp*1.2f*12.5f + 1350);
-        abVisionY = (int) (abVisionY-visionY- (int)dp*1.2f*9f + 900);
+        abVisionX = (int)(abVisionX- dp *1.2f*12.5f + 1350);
+        abVisionY = (int) (abVisionY- dp *1.2f*9f + 900);
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onJoystickMoved(float xPercent, float yPercent, int id){
 
         switch (id){
             case R.id.joystick:
-                // 取得搖桿的動作 因為回傳值是0.01~1 所以要乘10
-                x = (int)(xPercent*10);
-                y = (int)(yPercent*10);
+                if(myRound){
+                    // 取得搖桿的動作 因為回傳值是0.01~1 所以要乘10
+                    x = (int)(xPercent*10);
+                    y = (int)(yPercent*10);
 
-                // 移動玩家
-                player.setTranslationX((int)player.getX() + x);
-                player.setTranslationY((int)player.getY() + y);
+                    // 移動玩家 (單純顯示)
+                    role[myClientID].setTranslationX(role[myClientID].getX() + x);
+                    role[myClientID].setTranslationY(role[myClientID].getY() + y);
 
-                // 做成封包
-                packetMaker();
+                    // 移動玩家 (更新絕對座標)
+                    playerX[myClientID] += TransDP(x);
+                    playerY[myClientID] += TransDP(y);
 
-                // 顯示座標
-                abX += TransDP(x);
-                abY += TransDP(y);
-                TextView coor = findViewById(R.id.coor);
-                plateX = (abX + 5740) / 600;
-                plateY = (abY + 3500) / 600;
-                coor.setText("X: "+abX + " Y: "+abY+" PX: "+plateX + " PY: "+plateY);
+                    // 做成封包
+                    packetMaker();
+
+                    // 算板塊 XY
+                    plateX = (playerX[myClientID] + 7220) / 600;
+                    plateY = (playerY[myClientID] + 4500) / 600;
+
+                    coor.setText("X: "+playerX[myClientID] + " Y: "+playerY[myClientID]+" PX: "+plateX + " PY: "+plateY);
+                    coor1.setText("ID: "+myClientID);
+
+                }
                 break;
 
             case R.id.joystick2:
@@ -140,8 +174,10 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 visionY = (int) (yPercent*15);
 
                 // 移動視角
-                player.setTranslationX((int)player.getX()-visionX);
-                player.setTranslationY((int)player.getY()-visionY);
+                for(int i=1;i<6;i++){
+                    role[i].setTranslationX((int)role[i].getX()-visionX);
+                    role[i].setTranslationY((int)role[i].getY()-visionY);
+                }
                 bg.setTranslationX((int)bg.getX()-visionX);
                 bg.setTranslationY((int)bg.getY()-visionY);
                 PlateLayout.setTranslationX((int) PlateLayout.getX()-visionX);
@@ -153,19 +189,25 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
 
     // 封包切割機
     void packetMaker(){
-        if(x!=0 && y!=0) {
-            // 清空字串
-            msgToServer = "";
 
-            msgToServer += String.format("%04d", (int)player.getX());
-            msgToServer += String.format ("%04d", (int)player.getY());
+        // 清空字串
+        msgToServer = "";
+        // 加上座標
+        msgToServer += String.format("%05d", playerX[myClientID]);
+        msgToServer += String.format("%05d", playerY[myClientID]);
+        // 加上回合是否結束
+        msgToServer += roundOver;
 
-            // 送出自己座標的封包
-            Sender sender = new Sender();
-            new Thread(sender).start();
-        }
+        // 加上遊戲開始的訊號
+        if(gameStart == 1)
+            msgToServer += "1";
+        else
+            msgToServer += "0";
+
+        // 送出自己座標的封包
+        Sender sender = new Sender();
+        new Thread(sender).start();
     }
-
     // 設定按鈕的點擊事件
     public void Config(View view) {
 
@@ -201,17 +243,17 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             // 跳轉到顯示玩家人數介面
             LayoutInflater inflater1 = LayoutInflater.from(context);
             View view1 = inflater1.inflate(R.layout.room_population, null);
+            population = view1.findViewById(R.id.population);
             Button start = view1.findViewById(R.id.start);
             AlertDialog.Builder alert1 = new AlertDialog.Builder(context);
             alert1.setView(view1);
             AlertDialog dialog1 = alert1.create();
             dialog1.setCanceledOnTouchOutside(false);
             dialog1.setCancelable(false);
-            start.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    dialog1.dismiss();
-                }
+            start.setOnClickListener(v1 -> {
+                gameStart = 1;
+                packetMaker();
+                dialog1.dismiss();
             });
             dialog1.show();
         });
@@ -222,14 +264,20 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     public void GoBack(View view) {
-        visionX = (int)(player.getX()-abVisionX);
-        visionY = (int)(player.getY()-abVisionY);
-        player.setTranslationX((int)player.getX()-visionX);
-        player.setTranslationY((int)player.getY()-visionY);
-        bg.setTranslationX(bg.getX()-visionX);
-        bg.setTranslationY(bg.getY()-visionY);
-        PlateLayout.setTranslationX(PlateLayout.getX()-visionX);
-        PlateLayout.setTranslationY(PlateLayout.getY()-visionY);
+//        visionX = (int)(role[myClientID].getX()-abVisionX);
+//        visionY = (int)(role[myClientID].getY()-abVisionY);
+//        role[myClientID].setTranslationX((int)role[myClientID].getX()-visionX);
+//        role[myClientID].setTranslationY((int)role[myClientID].getY()-visionY);
+//        bg.setTranslationX(bg.getX()-visionX);
+//        bg.setTranslationY(bg.getY()-visionY);
+//        PlateLayout.setTranslationX(PlateLayout.getX()-visionX);
+//        PlateLayout.setTranslationY(PlateLayout.getY()-visionY);
+//        for(int i=1;i<6;i++){
+//            if(i != myClientID) {
+//                role[i].setTranslationX((int) role[i].getX() - visionX);
+//                role[i].setTranslationY((int) role[i].getY() - visionY);
+//            }
+//        }
     }
 
     public void backpack(View view) {
@@ -246,15 +294,16 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-
     // 回合結束按鈕
     public void roundOver(View view) {
+        roundOver = 1;
+        packetMaker();
+        roundOver = 2;
+        myRound = false;
     }
-
     // 擲骰子按鈕
     public void diceRoll(View view) {
     }
-
     // 送出訊息的執行緒
     class Sender implements Runnable {
         @Override
@@ -266,7 +315,6 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             } catch (IOException e) {} // 就算有例外我也沒辦法處裡
         }
     }
-
     // 接收訊息的執行緒
     class StartASocket implements Runnable{
         @Override
@@ -279,17 +327,49 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             // 嘗試從接收器擷取訊息
             try{
                 while(true){
+                    // 收一個封包
                     msgFromServer = in.readLine();
 
-                    // 從封包切出座標
-//                    x2 = Integer.valueOf(msgFromServer.substring(0,4));
-//                    y2 = Integer.valueOf(msgFromServer.substring(4,8));
-
+                    switch (msgFromServer.charAt(0)){
+                        // 0 開頭
+                        case '0':
+                            // 第 1 格代表人數
+                            numberOfPlayer = msgFromServer.charAt(1) - 48;
+                            // 第 2~6 格代表抽出的角色序號
+                            for(int i=1;i<6;i++)
+                                characterIndex[i] = msgFromServer.charAt(i+1) - 48;
+                            // 第 3 格代表該client的ID
+                            if(myClientID == 0)
+                                myClientID = msgFromServer.charAt(7) - 48;
+                            // 顯示玩家人數
+                            runOnUiThread(() ->
+                                    population.setText("玩家人數 : " + numberOfPlayer));
+                            break;
+                        case '1':
+                            // 第 1 格代表誰的回合
+                            if(msgFromServer.charAt(1)-48 == myClientID){
+                                roundOver = 0;
+                                myRound = true;
+                            }
+                            // 角色 1~5 的座標
+                            int from=2, to=7;
+                            for(int i=1;i<6;i++){
+                                if(i != myClientID && !myRound) {
+                                    playerX[i] = Integer.parseInt(msgFromServer.substring(from, to));
+                                    playerY[i] = Integer.parseInt(msgFromServer.substring(from + 5, to + 5));
+                                    role[i].setTranslationX(role[myClientID].getX() + TransPX(playerX[i] - playerX[myClientID]));
+                                    role[i].setTranslationY(role[myClientID].getY() + TransPX(playerY[i] - playerY[myClientID]));
+                                }
+                                from += 10;
+                                to += 10;
+                            }
+                            break;
+                    }
                     // 更新畫面
-                    runOnUiThread(() -> {
+//                    runOnUiThread(() -> {
 //                            player2.setTranslationX(x2);
 //                            player2.setTranslationY(y2);
-                    });
+//                    });
                 }
             }catch (IOException e){} // 就算拋出例外我也沒辦法處裡
         }

@@ -45,19 +45,45 @@
             <!-- 這裡裝地圖的板塊 -->
 
         </RelativeLayout>
-        <!-- 我的角色 -->
+        <!-- 角色們 -->
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
-                   android:gravity="center"
-                   android:layout_gravity="center"
                    android:src="@drawable/dice"
-                   android:id="@+id/player1">
+                   android:id="@+id/role1">
         </ImageView>
-
-        <!-- 座標測試 -->
+        <ImageView android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:src="@drawable/dice"
+                   android:id="@+id/role2">
+        </ImageView>
+        <ImageView android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:src="@drawable/dice"
+                   android:id="@+id/role3">
+        </ImageView>
+        <ImageView android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:src="@drawable/items"
+                   android:id="@+id/role4">
+        </ImageView>
+        <ImageView android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:src="@drawable/items"
+                   android:id="@+id/role5">
+        </ImageView>
+        <!-- 座標測試 可刪 -->
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:id="@+id/coor"
+                  android:layout_alignParentRight="true"
+                  android:background="@color/white">
+
+        </TextView>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/coor1"
+                  android:layout_below="@id/coor"
+                  android:layout_alignParentRight="true"
                   android:background="@color/white">
 
         </TextView>
@@ -260,36 +286,6 @@
 
         </TextView>
 
-        <!-- 其他角色人物 -->
-        <!-- 2 -->
-        <ImageView android:layout_width="50dp"
-                   android:layout_height="50dp"
-                   android:gravity="center"
-                   android:layout_gravity="center"
-                   android:id="@+id/player2">
-        </ImageView>
-        <!-- 3 -->
-        <ImageView android:layout_width="50dp"
-                   android:layout_height="50dp"
-                   android:gravity="center"
-                   android:layout_gravity="center"
-                   android:id="@+id/player3">
-        </ImageView>
-        <!-- 4 -->
-        <ImageView android:layout_width="50dp"
-                   android:layout_height="50dp"
-                   android:gravity="center"
-                   android:layout_gravity="center"
-                   android:id="@+id/player4">
-        </ImageView>
-        <!-- 5 -->
-        <ImageView android:layout_width="50dp"
-                   android:layout_height="50dp"
-                   android:gravity="center"
-                   android:layout_gravity="center"
-                   android:id="@+id/player5">
-        </ImageView>
-
         <!-- 我的人物狀態列 -->
         <ImageView android:layout_width="match_parent"
                    android:layout_height="110dp"
@@ -367,7 +363,6 @@
                 android:onClick="GoBack">
 
         </Button>
-
         <!-- 回合結束按鈕 -->
         <Button android:layout_width="100dp"
                 android:layout_height="40dp"
