@@ -1,6 +1,5 @@
 package com.example.baldursgate;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -28,15 +27,18 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     ImageView[][] Plate;                // 板塊
     ImageView[] role;                   // 玩家角色 (取代player)
     TextView population;                // 顯示玩家數
+    ImageView[] playerAttributeFrame;   // 角色屬性背板
+    TextView[][] playerAttribute;       // 角色屬性值
 
+    TextView abVision;
     TextView coor,coor1;
 
     // 遊戲角色屬性變數
     int myClientID = 0;         // client號
     int x, y;                   // 角色位移
     int visionX=0, visionY=0;   // 視野範圍
-    int abVisionX, abVisionY;   // 視野座標
     int plateX, plateY;         // 角色所在的板塊
+    Character character;
 
     // 玩家們的 XY 座標   *****角色絕對座標 (單位:DP) 600dp/plate (0,0)=>(-7220, -4500)*****
     int[] playerX = { 100 ,100 ,100 ,100 ,100 ,100 };
@@ -59,9 +61,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     static int SERVER_PORT;
 
     // DP 單位換算
-    int TransDP(int n){
-        return n*(int)this.getResources().getDisplayMetrics().density;
-    }
+    int TransDP(int n) { return n*(int)this.getResources().getDisplayMetrics().density;}
     int TransPX(int n) { return n/(int)this.getResources().getDisplayMetrics().density;}
 
     @Override
@@ -78,14 +78,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         GameRelativeLayout = findViewById(R.id.GameRelativeLayout);
         // 開始先讓GameRelativeLayout 消失
         GameRelativeLayout.setVisibility(View.GONE);
-
-
-
         // 遊戲畫面
         PlateLayout = findViewById(R.id.plateLayout);
         bg = findViewById(R.id.bg);
         Plate = new ImageView[25][15];
 
+        abVision = findViewById(R.id.vision);
         coor = findViewById(R.id.coor);
         coor1 = findViewById(R.id.coor1);
 
@@ -111,17 +109,45 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         for(int i = 0;i<6;i++)
             role[i] = new ImageView(this);
 
-        role[1] = findViewById(R.id.role1);
-        role[2] = findViewById(R.id.role2);
-        role[3] = findViewById(R.id.role3);
-        role[4] = findViewById(R.id.role4);
-        role[5] = findViewById(R.id.role5);
-
-        // 角色數量不超過玩家數
-        for(int i=5;i>0;i--){
-            if(i>numberOfPlayer)
-                role[i].setVisibility(View.GONE);
+        // 初始化屬性與背板
+        playerAttribute = new TextView[4][4];
+        playerAttributeFrame = new ImageView[4];
+        character = new Character();
+        for(int i=0;i<4;i++){
+            playerAttributeFrame[i] = new ImageView(this);
+            playerAttribute[i] = new TextView[4];
+            for(int j=0;j<4;j++)
+                playerAttribute[i][j] = new TextView(this);
         }
+        // 列舉並初始化一些東西(括號只是想它可以折疊)
+        {
+            role[1] = findViewById(R.id.role1);
+            role[2] = findViewById(R.id.role2);
+            role[3] = findViewById(R.id.role3);
+            role[4] = findViewById(R.id.role4);
+            role[5] = findViewById(R.id.role5);
+            playerAttributeFrame[0] = findViewById(R.id.one);
+            playerAttributeFrame[1] = findViewById(R.id.two);
+            playerAttributeFrame[2] = findViewById(R.id.three);
+            playerAttributeFrame[3] = findViewById(R.id.four);
+            playerAttribute[0][0] = findViewById(R.id.oneMight);
+            playerAttribute[0][1] = findViewById(R.id.oneSpeed);
+            playerAttribute[0][2] = findViewById(R.id.oneSanity);
+            playerAttribute[0][3] = findViewById(R.id.oneKnowledge);
+            playerAttribute[1][0] = findViewById(R.id.twoMight);
+            playerAttribute[1][1] = findViewById(R.id.twoSpeed);
+            playerAttribute[1][2] = findViewById(R.id.twoSanity);
+            playerAttribute[1][3] = findViewById(R.id.twoKnowledge);
+            playerAttribute[2][0] = findViewById(R.id.threeMight);
+            playerAttribute[2][1] = findViewById(R.id.threeSpeed);
+            playerAttribute[2][2] = findViewById(R.id.threeSanity);
+            playerAttribute[2][3] = findViewById(R.id.threeKnowledge);
+            playerAttribute[3][0] = findViewById(R.id.fourMight);
+            playerAttribute[3][1] = findViewById(R.id.fourSpeed);
+            playerAttribute[3][2] = findViewById(R.id.fourSanity);
+            playerAttribute[3][3] = findViewById(R.id.fourKnowledge);
+        }
+
         // 玩家初始位置在地圖中央
         for(int i = 1;i<6;i++) {
             role[i].setTranslationX(playerX[i]);
@@ -133,8 +159,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         bg.setTranslationY((int)bg.getY()-visionY - dp *1.2f*9f + 500);
         PlateLayout.setTranslationX((int) PlateLayout.getX()-visionX - dp *1.2f*12.5f + 500);
         PlateLayout.setTranslationY((int) PlateLayout.getY()-visionY - dp *1.2f*9f + 500);
-        abVisionX = (int)(abVisionX- dp *1.2f*12.5f + 1350);
-        abVisionY = (int) (abVisionY- dp *1.2f*9f + 900);
+
     }
 
     @Override
@@ -184,7 +209,6 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 PlateLayout.setTranslationY((int) PlateLayout.getY()-visionY);
                 break;
         }
-
     }
 
     // 封包切割機
@@ -253,6 +277,37 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             start.setOnClickListener(v1 -> {
                 gameStart = 1;
                 packetMaker();
+                // 設定遊戲開始畫面
+                // 角色數量不超過玩家數
+                System.out.println("numberOfPlayer: " + numberOfPlayer);
+                for(int i = numberOfPlayer + 1; i < 6; i++)
+                    role[i].setVisibility(View.GONE);
+                // 屬性框數量不超過玩家數
+                for(int i = numberOfPlayer-1; i<=3;i++)
+                    playerAttributeFrame[i].setVisibility(View.GONE);
+                // 初始化角色們的屬性值
+                for(int i=1, j=0; i<=numberOfPlayer; i++, j++){   // i 迭代, j 代表屬性欄編號
+                    if(i != myClientID){
+                        // playerAttribute 的範圍只到3
+                        playerAttribute[j][0].setText(Integer.toString(character.chara[characterIndex[i]].Might[character.chara[characterIndex[i]].iniMight]));
+                        playerAttribute[j][1].setText(Integer.toString(character.chara[characterIndex[i]].Speed[character.chara[characterIndex[i]].iniSpeed]));
+                        playerAttribute[j][2].setText(Integer.toString(character.chara[characterIndex[i]].Sanity[character.chara[characterIndex[i]].iniSanity]));
+                        playerAttribute[j][3].setText(Integer.toString(character.chara[characterIndex[i]].Knowledge[character.chara[characterIndex[i]].iniKnowledge]));
+
+                    } else {
+                        j--;
+                        TextView myMight = findViewById(R.id.myMight);
+                        TextView mySpeed = findViewById(R.id.mySpeed);
+                        TextView mySanity = findViewById(R.id.mySanity);
+                        TextView myKnowledge = findViewById(R.id.myKnowledge);
+                        myMight.setText(Integer.toString(character.chara[characterIndex[myClientID]].Might[character.chara[characterIndex[myClientID]].iniMight]));
+                        mySpeed.setText(Integer.toString(character.chara[characterIndex[myClientID]].Speed[character.chara[characterIndex[myClientID]].iniSpeed]));
+                        mySanity.setText(Integer.toString(character.chara[characterIndex[myClientID]].Sanity[character.chara[characterIndex[myClientID]].iniSanity]));
+                        myKnowledge.setText(Integer.toString(character.chara[characterIndex[myClientID]].Knowledge[character.chara[characterIndex[myClientID]].iniKnowledge]));
+                    }
+                }
+
+                // 關閉彈出視窗
                 dialog1.dismiss();
             });
             dialog1.show();
@@ -264,20 +319,16 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     public void GoBack(View view) {
-//        visionX = (int)(role[myClientID].getX()-abVisionX);
-//        visionY = (int)(role[myClientID].getY()-abVisionY);
-//        role[myClientID].setTranslationX((int)role[myClientID].getX()-visionX);
-//        role[myClientID].setTranslationY((int)role[myClientID].getY()-visionY);
-//        bg.setTranslationX(bg.getX()-visionX);
-//        bg.setTranslationY(bg.getY()-visionY);
-//        PlateLayout.setTranslationX(PlateLayout.getX()-visionX);
-//        PlateLayout.setTranslationY(PlateLayout.getY()-visionY);
-//        for(int i=1;i<6;i++){
-//            if(i != myClientID) {
-//                role[i].setTranslationX((int) role[i].getX() - visionX);
-//                role[i].setTranslationY((int) role[i].getY() - visionY);
-//            }
-//        }
+        visionX = (int)(role[myClientID].getX()-abVision.getX());
+        visionY = (int)(role[myClientID].getY()-abVision.getY());
+        bg.setTranslationX(bg.getX()-visionX);
+        bg.setTranslationY(bg.getY()-visionY);
+        PlateLayout.setTranslationX(PlateLayout.getX()-visionX);
+        PlateLayout.setTranslationY(PlateLayout.getY()-visionY);
+        for(int i=1;i<6;i++){
+            role[i].setTranslationX((int) role[i].getX() - visionX);
+            role[i].setTranslationY((int) role[i].getY() - visionY);
+        }
     }
 
     public void backpack(View view) {
@@ -365,11 +416,6 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                             }
                             break;
                     }
-                    // 更新畫面
-//                    runOnUiThread(() -> {
-//                            player2.setTranslationX(x2);
-//                            player2.setTranslationY(y2);
-//                    });
                 }
             }catch (IOException e){} // 就算拋出例外我也沒辦法處裡
         }

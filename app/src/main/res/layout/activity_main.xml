@@ -26,6 +26,14 @@
                     android:gravity="bottom"
                     android:clipChildren="false"
                     android:id="@+id/GameRelativeLayout">
+        <!--GoBackGoBack-->
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="150dp"
+                  android:layout_centerHorizontal="true"
+
+                  android:id="@+id/vision">
+        </TextView>
         <!-- 底圖 -->
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="match_parent">
@@ -45,6 +53,7 @@
             <!-- 這裡裝地圖的板塊 -->
 
         </RelativeLayout>
+
         <!-- 角色們 -->
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
@@ -72,6 +81,7 @@
                    android:id="@+id/role5">
         </ImageView>
         <!-- 座標測試 可刪 -->
+
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:id="@+id/coor"
@@ -302,8 +312,8 @@
                   android:textSize="30dp"
                   android:textColor="#bdb76b"
                   android:textStyle="bold"
-                  android:layout_marginTop="312dp"
-                  android:layout_marginLeft="310dp">
+                  android:layout_marginTop="320dp"
+                  android:layout_marginLeft="360dp">
 
         </TextView>
         <TextView android:layout_width="wrap_content"
@@ -312,8 +322,8 @@
                   android:textSize="30dp"
                   android:textColor="#bdb76b"
                   android:textStyle="bold"
-                  android:layout_marginTop="313dp"
-                  android:layout_marginLeft="400dp">
+                  android:layout_marginTop="320dp"
+                  android:layout_marginLeft="480dp">
 
         </TextView>
         <TextView android:layout_width="wrap_content"
@@ -322,8 +332,8 @@
                   android:textSize="30dp"
                   android:textColor="#bdb76b"
                   android:textStyle="bold"
-                  android:layout_marginTop="348dp"
-                  android:layout_marginLeft="400dp">
+                  android:layout_marginTop="360dp"
+                  android:layout_marginLeft="480dp">
 
         </TextView>
         <TextView android:layout_width="wrap_content"
@@ -332,8 +342,8 @@
                   android:textSize="30dp"
                   android:textColor="#bdb76b"
                   android:textStyle="bold"
-                  android:layout_marginTop="348dp"
-                  android:layout_marginLeft="310dp">
+                  android:layout_marginTop="360dp"
+                  android:layout_marginLeft="360dp">
 
         </TextView>
 

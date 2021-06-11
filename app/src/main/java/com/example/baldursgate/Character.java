@@ -73,7 +73,7 @@ public class Character {
         chara[5].iniKnowledge = 3;
     }
 
-    public class Chara{
+    public static class Chara{
         String Name;        // 名字
         int[] Might;        // 4 個屬性
         int[] Speed;
@@ -84,6 +84,4 @@ public class Character {
         int iniSanity;
         int iniKnowledge;
     }
-
-
 }
