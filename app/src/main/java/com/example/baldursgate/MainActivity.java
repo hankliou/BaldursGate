@@ -100,6 +100,15 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 Plate[i][j].setTranslationY(dp *j +500); // 預設圖片
                 Plate[i][j].setLayoutParams(params);
                 Plate[i][j].setImageResource(R.drawable.assassin);
+                int finalI = i;
+                int finalJ = j;
+                Plate[i][j].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("Plate["+finalI+"]["+finalJ+"] clicked.");
+                        Plate[finalI][finalJ].setImageResource(R.drawable.ic_launcher_background);
+                    }
+                });
                 PlateLayout.addView(Plate[i][j]);
             }
         }

@@ -48,7 +48,7 @@
         <!-- 地圖板塊的底 -->
         <RelativeLayout android:layout_width="2500dp"
                         android:layout_height="1500dp"
-                        android:id="@+id/plateLayout"
+                        android:id="@+id/plateLayout" android:clipToPadding="false"
                         android:clipChildren="false">
             <!-- 這裡裝地圖的板塊 -->
 
