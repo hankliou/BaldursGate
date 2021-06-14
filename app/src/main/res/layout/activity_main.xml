@@ -48,7 +48,7 @@
         <!-- 地圖板塊的底 -->
         <RelativeLayout android:layout_width="2500dp"
                         android:layout_height="1500dp"
-                        android:id="@+id/plateLayout" android:clipToPadding="false"
+                        android:id="@+id/plateLayout"
                         android:clipChildren="false">
             <!-- 這裡裝地圖的板塊 -->
 
@@ -391,7 +391,7 @@
                      android:scaleType="centerCrop"
                      android:layout_toLeftOf="@id/joystick2"
                      android:layout_marginBottom="180dp"
-                     android:onClick="diceRoll" android:layout_alignParentBottom="true">
+                     android:onClick="newPlate" android:layout_alignParentBottom="true">
 
         </ImageButton>
         <!-- 包包按鈕 -->

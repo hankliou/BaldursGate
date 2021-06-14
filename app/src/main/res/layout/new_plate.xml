@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/map"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 板塊 -->
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+
+    </ImageView>
+    <!-- 三色牌堆 -->
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:layout_alignParentRight="true"
+                  android:layout_marginRight="30sp"
+                  android:gravity="center"
+                  android:id="@+id/box"
+                  android:orientation="vertical">
+        <ImageButton android:layout_width="100sp"
+                     android:layout_height="100sp"
+                     android:src="@color/teal_200"
+                     android:scaleType="centerCrop"
+                     android:layout_weight="1"
+                     android:id="@+id/red">
+
+        </ImageButton>
+        <ImageButton android:layout_width="100sp"
+                     android:layout_height="100sp"
+                     android:src="@color/teal_200"
+                     android:scaleType="centerCrop"
+                     android:layout_weight="1"
+                     android:id="@+id/blue">
+
+        </ImageButton>
+        <ImageButton android:layout_width="100sp"
+                     android:layout_height="100sp"
+                     android:src="@color/teal_200"
+                     android:scaleType="centerCrop"
+                     android:layout_weight="1"
+                     android:id="@+id/yellow">
+
+        </ImageButton>
+    </LinearLayout>
+    <!-- 抽到的牌 -->
+    <ImageView android:layout_width="250dp"
+               android:layout_height="250dp"
+               android:src="@drawable/ic_launcher_foreground"
+               android:layout_marginLeft="20dp"
+               android:layout_marginTop="20dp"
+               android:id="@+id/picked">
+
+    </ImageView>
+    <!-- 地圖上的牌 -->
+    <ImageView android:layout_width="250dp"
+               android:layout_height="250dp"
+               android:src="@drawable/ic_launcher_foreground"
+               android:layout_toRightOf="@id/picked"
+               android:layout_marginLeft="20dp"
+               android:layout_marginTop="20dp"
+               android:id="@+id/origin">
+
+    </ImageView>
+    <!-- 上下左右 -->
+    <ImageButton android:layout_width="50dp"
+                 android:layout_height="100dp"
+                 android:layout_toRightOf="@id/up"
+                 android:layout_alignParentBottom="true"
+                 android:layout_marginBottom="20dp"
+                 android:id="@+id/right">
+    </ImageButton>
+    <ImageButton android:layout_width="100dp"
+                 android:layout_height="50dp"
+                 android:layout_centerHorizontal="true"
+                 android:layout_alignParentBottom="true"
+                 android:layout_marginBottom="20dp"
+                 android:id="@+id/down">
+    </ImageButton>
+    <ImageButton android:layout_width="100dp"
+                 android:layout_height="50dp"
+                 android:layout_centerHorizontal="true"
+                 android:layout_above="@id/down"
+                 android:layout_marginBottom="-20dp"
+                 android:id="@+id/up">
+    </ImageButton>
+    <ImageButton android:layout_width="50dp"
+                 android:layout_height="100dp"
+                 android:layout_toLeftOf="@id/up"
+                 android:layout_alignParentBottom="true"
+                 android:layout_marginBottom="20dp"
+                 android:id="@+id/left">
+    </ImageButton>
+    <!-- 旋轉 -->
+    <ImageButton android:layout_width="100sp"
+                 android:layout_height="100sp"
+                 android:layout_alignParentBottom="true"
+                 android:layout_marginLeft="20dp"
+                 android:layout_marginBottom="20dp"
+                 android:id="@+id/rotate">
+
+    </ImageButton>
+    <!-- OK -->
+</RelativeLayout>

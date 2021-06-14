@@ -27,4 +27,85 @@
                  android:layout_marginTop="283dp">
 
     </ImageButton>
+
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:id="@+id/item1"
+        android:layout_marginLeft="275dp"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/knowledge"
+        ></Button>
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:id="@+id/item2"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/knowledge"
+        android:layout_toRightOf="@+id/item1"
+        ></Button>
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:id="@+id/item3"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/knowledge"
+        android:layout_toRightOf="@+id/item2"
+        ></Button>
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:id="@+id/item4"
+        android:layout_marginLeft="275dp"
+        android:layout_below="@+id/item1"
+        ></Button>
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:id="@+id/item5"
+        android:layout_below="@+id/item2"
+        android:layout_toRightOf="@+id/item4"
+        ></Button>
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:id="@+id/item6"
+        android:layout_below="@+id/item3"
+        android:layout_toRightOf="@+id/item5"
+        ></Button>
+
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="95dp"
+        android:id="@+id/itemname"
+        android:text="物品名稱"
+        ></TextView>
+    <TextView
+        android:layout_width="155dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="50dp"
+        android:id="@+id/itemcontext"
+        android:text="物品描述"
+        android:layout_below="@+id/itemname"
+        ></TextView>
+    <TextView
+        android:layout_width="155dp"
+        android:layout_height="125dp"
+        android:layout_marginLeft="50dp"
+        android:id="@+id/itemcontext2"
+        android:text="物品使用說明"
+        android:layout_below="@+id/itemcontext"
+        ></TextView>
+    //抽物品用的下面那個之後要刪掉
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="抽"
+        android:id="@+id/get"
+        android:layout_toRightOf="@+id/itemcontext2"
+        android:layout_below="@+id/item4"
+        ></Button>
 </RelativeLayout>
