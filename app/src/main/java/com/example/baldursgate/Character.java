@@ -16,6 +16,12 @@ public class Character {
         chara[0].iniSpeed = 3;
         chara[0].iniSanity = 5;
         chara[0].iniKnowledge = 4;
+
+        chara[0].currentMight = 3;
+        chara[0].currentSpeed = 3;
+        chara[0].currentSanity = 5;
+        chara[0].currentKnowledge = 4;
+
         // 綠色
         chara[1] = new Chara();
         chara[1].Name = "";
@@ -27,6 +33,12 @@ public class Character {
         chara[1].iniSpeed = 4;
         chara[1].iniSanity = 3;
         chara[1].iniKnowledge = 3;
+
+        chara[1].currentMight = 4;
+        chara[1].currentSpeed = 4;
+        chara[1].currentSanity = 3;
+        chara[1].currentKnowledge = 3;
+
         // 藍色
         chara[2] = new Chara();
         chara[2].Name = "";
@@ -38,6 +50,12 @@ public class Character {
         chara[2].iniSpeed = 4;
         chara[2].iniSanity = 5;
         chara[2].iniKnowledge = 3;
+
+        chara[2].currentMight = 3;
+        chara[2].currentSpeed = 4;
+        chara[2].currentSanity = 5;
+        chara[2].currentKnowledge = 3;
+
         // 紅色
         chara[3] = new Chara();
         chara[3].Name = "";
@@ -49,6 +67,12 @@ public class Character {
         chara[3].iniSpeed = 4;
         chara[3].iniSanity = 3;
         chara[3].iniKnowledge = 4;
+
+        chara[3].currentMight = 3;
+        chara[3].currentSpeed = 4;
+        chara[3].currentSanity = 3;
+        chara[3].currentKnowledge = 4;
+
         // 黑色
         chara[4] = new Chara();
         chara[4].Name = "";
@@ -60,6 +84,12 @@ public class Character {
         chara[4].iniSpeed = 3;
         chara[4].iniSanity = 3;
         chara[4].iniKnowledge = 4;
+
+        chara[4].currentMight = 4;
+        chara[4].currentSpeed = 3;
+        chara[4].currentSanity = 3;
+        chara[4].currentKnowledge = 4;
+
         // 橘色
         chara[5] = new Chara();
         chara[5].Name = "";
@@ -71,6 +101,11 @@ public class Character {
         chara[5].iniSpeed = 3;
         chara[5].iniSanity = 4;
         chara[5].iniKnowledge = 3;
+
+        chara[5].currentMight = 4;
+        chara[5].currentSpeed = 3;
+        chara[5].currentSanity = 4;
+        chara[5].currentKnowledge = 3;
     }
 
     public static class Chara{
@@ -83,5 +118,9 @@ public class Character {
         int iniSpeed;
         int iniSanity;
         int iniKnowledge;
+        int currentMight;
+        int currentSpeed;
+        int currentSanity;
+        int currentKnowledge;
     }
 }
