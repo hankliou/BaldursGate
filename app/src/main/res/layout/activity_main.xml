@@ -11,8 +11,8 @@
                android:scaleType="centerCrop">
 
     </ImageView>
-    <ImageButton android:layout_width="100sp"
-                 android:layout_height="100sp"
+    <ImageButton android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
                  android:id="@+id/config"
                  android:onClick="Config"
                  android:layout_alignParentBottom="true"
@@ -57,18 +57,22 @@
         <!-- 角色們 -->
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
+                   android:src="@drawable/dice"
                    android:id="@+id/role1">
         </ImageView>
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
+                   android:src="@drawable/dice"
                    android:id="@+id/role2">
         </ImageView>
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
+                   android:src="@drawable/dice"
                    android:id="@+id/role3">
         </ImageView>
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
+                   android:src="@drawable/items"
                    android:id="@+id/role4">
         </ImageView>
         <ImageView android:layout_width="50dp"
@@ -96,12 +100,6 @@
 
         <!-- 其他角色能力 -->
         <!-- 1 -->
-        <ImageView android:layout_width="70dp"
-                   android:layout_height="70dp"
-                   android:layout_marginLeft="40dp"
-                   android:id="@+id/onepic">
-
-        </ImageView>
         <ImageView android:layout_width="150dp"
                    android:layout_height="70dp"
                    android:src="@drawable/player_frame"
@@ -151,13 +149,6 @@
 
         </TextView>
         <!-- 2 -->
-        <ImageView android:layout_width="70dp"
-                   android:layout_height="70dp"
-                   android:layout_marginLeft="40dp"
-                   android:layout_below="@id/onepic"
-                   android:id="@+id/twopic">
-
-        </ImageView>
         <ImageView android:layout_width="150dp"
                    android:layout_height="70dp"
                    android:src="@drawable/player_frame"
@@ -207,13 +198,6 @@
 
         </TextView>
         <!-- 3 -->
-        <ImageView android:layout_width="70dp"
-                   android:layout_height="70dp"
-                   android:layout_marginLeft="40dp"
-                   android:layout_below="@id/twopic"
-                   android:id="@+id/threepic">
-
-        </ImageView>
         <ImageView android:layout_width="150dp"
                    android:layout_height="70dp"
                    android:src="@drawable/player_frame"
@@ -263,13 +247,6 @@
 
         </TextView>
         <!-- 4 -->
-        <ImageView android:layout_width="70dp"
-                   android:layout_height="70dp"
-                   android:layout_marginLeft="40dp"
-                   android:layout_below="@id/threepic"
-                   android:id="@+id/fourpic">
-
-        </ImageView>
         <ImageView android:layout_width="150dp"
                    android:layout_height="70dp"
                    android:src="@drawable/player_frame"
@@ -320,15 +297,6 @@
         </TextView>
 
         <!-- 我的人物狀態列 -->
-        <ImageView android:layout_width="95dp"
-                   android:layout_height="95dp"
-                   android:layout_marginLeft="45dp"
-                   android:layout_marginBottom="20dp"
-                   android:layout_alignParentBottom="true"
-                   android:layout_toRightOf="@id/joystick"
-                   android:id="@+id/myhead">
-
-        </ImageView>
         <ImageView android:layout_width="match_parent"
                    android:layout_height="110dp"
                    android:id="@+id/attributes"

@@ -2,55 +2,46 @@
 <RelativeLayout android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <ImageView android:layout_height="match_parent"
-               android:layout_width="wrap_content"
-               android:adjustViewBounds="true"
+    <ImageView android:layout_width="220dp"
+               android:layout_height="480dp"
                android:layout_centerHorizontal="true"
-               android:scaleType="centerCrop"
                android:src="@drawable/card_item"
                android:id="@+id/card_type">
 
     </ImageView>
-
-    <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/close">
-
-    </Button>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/close"
+        ></Button>
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_centerHorizontal="true"
-              android:paddingTop="50dp"
+              android:paddingTop="30dp"
               android:textSize="25dp"
               android:textStyle="bold"
-              android:text="事件測試"
+              android:text="惡魔支配"
               android:id="@+id/title">
 
     </TextView>
-    <TextView android:layout_width="150dp"
+    <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_centerHorizontal="true"
-              android:layout_below="@id/title"
-              android:paddingTop="20dp"
+              android:paddingTop="120dp"
               android:textSize="16dp"
               android:textStyle="bold"
-              android:text="dadwdadadnqwertyuiopqwertyuiopqwertyuiopqw"
+              android:text="dadwdadad\nnqwertyuiopqwertyuiop\nqwertyuiopqw"
               android:id="@+id/body">
 
     </TextView>
-    <TextView android:layout_width="150dp"
-              android:layout_height="wrap_content"
-              android:layout_centerHorizontal="true"
-              android:layout_below="@+id/body"
-              android:layout_marginTop="20dp"
-              android:textSize="16dp"
-              android:textStyle="bold"
-              android:text="nqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopnqwertyuiopqwertyuiopnqwertyuiopqwertyuiopn"
-              android:id="@+id/body2">
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/body"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="nqwertyuiopqwertyuiop\nqwertyuiopqwertyuiop\nqwertyuiopqwertyuiop\nqwertyuiopqwertyuiop\nqwertyuiopqwertyuiop\nqwertyuiopqwertyuiop\n"
+        android:id="@+id/body2">
 
     </TextView>
 </RelativeLayout>
