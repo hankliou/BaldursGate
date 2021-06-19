@@ -57,27 +57,22 @@
         <!-- 角色們 -->
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
-                   android:src="@drawable/dice"
                    android:id="@+id/role1">
         </ImageView>
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
-                   android:src="@drawable/dice"
                    android:id="@+id/role2">
         </ImageView>
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
-                   android:src="@drawable/dice"
                    android:id="@+id/role3">
         </ImageView>
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
-                   android:src="@drawable/items"
                    android:id="@+id/role4">
         </ImageView>
         <ImageView android:layout_width="50dp"
                    android:layout_height="50dp"
-                   android:src="@drawable/items"
                    android:id="@+id/role5">
         </ImageView>
         <!-- 座標測試 可刪 -->
@@ -100,6 +95,12 @@
 
         <!-- 其他角色能力 -->
         <!-- 1 -->
+        <ImageView android:layout_width="70dp"
+                   android:layout_height="70dp"
+                   android:layout_marginLeft="40dp"
+                   android:id="@+id/onepic">
+
+        </ImageView>
         <ImageView android:layout_width="150dp"
                    android:layout_height="70dp"
                    android:src="@drawable/player_frame"
@@ -149,6 +150,13 @@
 
         </TextView>
         <!-- 2 -->
+        <ImageView android:layout_width="70dp"
+                   android:layout_height="70dp"
+                   android:layout_marginLeft="40dp"
+                   android:layout_below="@+id/onepic"
+                   android:id="@+id/twopic">
+
+        </ImageView>
         <ImageView android:layout_width="150dp"
                    android:layout_height="70dp"
                    android:src="@drawable/player_frame"
@@ -198,6 +206,13 @@
 
         </TextView>
         <!-- 3 -->
+        <ImageView android:layout_width="70dp"
+                   android:layout_height="70dp"
+                   android:layout_marginLeft="40dp"
+                   android:layout_below="@+id/twopic"
+                   android:id="@+id/threepic">
+
+        </ImageView>
         <ImageView android:layout_width="150dp"
                    android:layout_height="70dp"
                    android:src="@drawable/player_frame"
@@ -247,6 +262,13 @@
 
         </TextView>
         <!-- 4 -->
+        <ImageView android:layout_width="70dp"
+                   android:layout_height="70dp"
+                   android:layout_marginLeft="40dp"
+                   android:layout_below="@+id/threepic"
+                   android:id="@+id/fourpic">
+
+        </ImageView>
         <ImageView android:layout_width="150dp"
                    android:layout_height="70dp"
                    android:src="@drawable/player_frame"
@@ -297,6 +319,13 @@
         </TextView>
 
         <!-- 我的人物狀態列 -->
+        <ImageView android:layout_width="95dp"
+                   android:layout_height="95dp"
+                   android:layout_marginLeft="190dp"
+                   android:layout_alignParentBottom="true"
+                   android:id="@+id/myhead">
+
+        </ImageView>
         <ImageView android:layout_width="match_parent"
                    android:layout_height="110dp"
                    android:id="@+id/attributes"
@@ -404,6 +433,16 @@
                      android:id="@+id/backpack"
                      android:layout_above="@id/attributes" android:layout_marginBottom="21dp"
                      android:layout_toRightOf="@id/joystick">
+
+        </ImageButton>
+        <!-- 攻擊按鈕 -->
+        <ImageButton android:layout_width="70dp"
+                     android:layout_height="70dp"
+                     android:scaleType="centerCrop"
+                     android:layout_above="@id/attributes"
+                     android:layout_toLeftOf="@id/joystick2"
+                     android:id="@+id/atk"
+                     android:onClick="attackBtn" android:src="@drawable/sword">
 
         </ImageButton>
     </RelativeLayout>

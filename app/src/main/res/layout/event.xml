@@ -17,30 +17,32 @@
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_centerHorizontal="true"
-              android:paddingTop="30dp"
+              android:paddingTop="50dp"
               android:textSize="25dp"
               android:textStyle="bold"
               android:text="惡魔支配"
               android:id="@+id/title">
 
     </TextView>
-    <TextView android:layout_width="wrap_content"
+    <TextView android:layout_width="130dp"
               android:layout_height="wrap_content"
               android:layout_centerHorizontal="true"
-              android:paddingTop="120dp"
+              android:layout_below="@id/title"
+              android:layout_marginTop="20dp"
               android:textSize="16dp"
               android:textStyle="bold"
-              android:text="dadwdadad\nnqwertyuiopqwertyuiop\nqwertyuiopqw"
+              android:text="dadwdadadnqwertyuiopqwertyuiopqwertyuiopqw"
               android:id="@+id/body">
 
     </TextView>
-    <TextView android:layout_width="wrap_content"
+    <TextView android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/body"
+        android:layout_marginTop="20dp"
         android:textSize="16dp"
         android:textStyle="bold"
-        android:text="nqwertyuiopqwertyuiop\nqwertyuiopqwertyuiop\nqwertyuiopqwertyuiop\nqwertyuiopqwertyuiop\nqwertyuiopqwertyuiop\nqwertyuiopqwertyuiop\n"
+        android:text="uiopqwertyuiopqwertyuiopqwertyuiopnqwertyuiopqwertyuiopqwertyuiopqwertyuiopn"
         android:id="@+id/body2">
 
     </TextView>

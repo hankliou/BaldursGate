@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="600dp"
+                android:layout_height="350dp"
+                android:background="@drawable/map"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 對準中心用的 -->
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerInParent="true"
+              android:id="@+id/middle">
+
+    </TextView>
+
+    <ImageView android:layout_width="100dp"
+               android:layout_height="100dp"
+               android:layout_marginRight="10dp"
+               android:scaleType="centerCrop"
+               android:layout_centerVertical="true"
+               android:layout_toLeftOf="@id/middle"
+               android:id="@+id/attackedRole1" android:layout_marginEnd="10dp">
+
+    </ImageView>
+    <ImageView android:layout_width="100dp"
+               android:layout_height="100dp"
+               android:layout_centerVertical="true"
+               android:scaleType="centerCrop"
+               android:layout_marginRight="20dp"
+               android:layout_toLeftOf="@+id/attackedRole1"
+               android:id="@+id/attackedRole2">
+
+    </ImageView>
+    <ImageView android:layout_width="100dp"
+               android:layout_height="100dp"
+               android:layout_centerVertical="true"
+               android:scaleType="centerCrop"
+               android:layout_marginLeft="10dp"
+               android:layout_toRightOf="@id/middle"
+               android:id="@+id/attackedRole3">
+
+    </ImageView>
+    <ImageView android:layout_width="100dp"
+               android:layout_height="100dp"
+               android:layout_centerVertical="true"
+               android:scaleType="centerCrop"
+               android:layout_marginLeft="20dp"
+               android:layout_toRightOf="@id/attackedRole3"
+               android:id="@+id/attackedRole4">
+
+    </ImageView>
+</RelativeLayout>
