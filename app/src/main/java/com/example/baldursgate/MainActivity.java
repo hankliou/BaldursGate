@@ -252,7 +252,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     int NextRoundMove;
 
     //事件 by 周辰陽
-    int[] event = new int[35];
+    int event[] = new int[35];
     boolean NextDiceZero = false;
     boolean DrawItem = false;
 
@@ -295,7 +295,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     int roundOver = 2;                  // 回合結束了嗎 (0: 我的回合還沒結束, 1:我的回合結束了, 2:不是我的回合，郭?)
     boolean[] alive = { true, true, true, true, true, true }; // 是否還活著(由SERVER告知)
     boolean openplate = false;          // 有沒有開新板塊
-    String newPlateThings = "1";
+    String newPlateThings;
 
 
     // 連線物件
@@ -464,23 +464,44 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     // 移動玩家 (單純顯示)
                     // X
                     if(maproom[(playerX[myClientID] + TransDP(x) + 7220) / 600][plateY] > -1){
+                        //if((playerX[myClientID] + TransDP(x) + 7220) / 600 != plateX && CanPass(plateX, plateY, ((playerX[myClientID] + TransDP(x) + 7220) / 600), plateY)) {
                         // 移動玩家 (單純顯示)
                         role[myClientID].setTranslationX(role[myClientID].getX() + x);
                         // 移動玩家 (更新絕對座標)
                         playerX[myClientID] += TransDP(x);
                         // 算板塊 XY
                         plateX = (playerX[myClientID] + 7220) / 600;
+                        //}
+//                        else if ((playerX[myClientID] + TransDP(x) + 7220) / 600 == plateX) {
+//                            // 移動玩家 (單純顯示)
+//                            role[myClientID].setTranslationX(role[myClientID].getX() + x);
+//                            // 移動玩家 (更新絕對座標)
+//                            playerX[myClientID] += TransDP(x);
+//                            // 算板塊 XY
+//                            plateX = (playerX[myClientID] + 7220) / 600;
+//                        }
                     }
 
                     // Y
                     if(maproom[plateX][(playerY[myClientID] + TransDP(y) + 4500) / 600] > -1){
+                        //if((playerY[myClientID] + TransDP(y) + 4500) / 600 != plateY && CanPass(plateX, plateY, plateX, (playerY[myClientID] + TransDP(y) + 4500) / 600)){
                         // 移動玩家 (單純顯示)
                         role[myClientID].setTranslationY(role[myClientID].getY() + y);
                         // 移動玩家 (更新絕對座標)
                         playerY[myClientID] += TransDP(y);
                         // 算板塊 XY
                         plateY = (playerY[myClientID] + 4500) / 600;
+                        //}
+//                        else if((playerY[myClientID] + TransDP(y) + 4500) / 600 == plateY){
+//                            // 移動玩家 (單純顯示)
+//                            role[myClientID].setTranslationY(role[myClientID].getY() + y);
+//                            // 移動玩家 (更新絕對座標)
+//                            playerY[myClientID] += TransDP(y);
+//                            // 算板塊 XY
+//                            plateY = (playerY[myClientID] + 4500) / 600;
+//                        }
                     }
+
                     // 做成封包
                     packetMaker();
 
@@ -508,8 +529,35 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         }
     }
 
+    public boolean CanPass(int nowx, int nowy, int gox, int goy) {
+        if(gox > nowx) {
+            if(door[nowx][nowy].charAt(1) == 'G')
+                return true;
+            else
+                return false;
+        }
+        if(gox < nowx) {
+            if(door[nowx][nowy].charAt(3) == 'G')
+                return true;
+            else
+                return false;
+        }
+        if(nowy > goy) {
+            if(door[nowx][nowy].charAt(0) == 'G')
+                return true;
+            else
+                return false;
+        }
+        if(nowy < goy) {
+            if(door[nowx][nowy].charAt(2) == 'G')
+                return true;
+            else
+                return false;
+        }
+        return false;
+    }
+
     // 封包切割機
-    @SuppressLint("DefaultLocale")
     void packetMaker(){
 
         // 清空字串
@@ -533,10 +581,11 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         msgToServer += character.chara[characterIndex[myClientID]].currentKnowledge;
 
         if(openplate){
-            msgToServer += newPlateThings;
-            newPlateThings = "1";
             openplate = false;
-        }else msgToServer += "000000000000000000000000000";
+            msgToServer += newPlateThings;
+        }
+        else
+            msgToServer += "000000000000000000000000000000";
 
         // 送出自己座標的封包
         Sender sender = new Sender();
@@ -587,7 +636,6 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             dialog1.setCancelable(false);
             start.setOnClickListener(v1 -> {
                 gameStart = 1;
-                packetMaker();
                 // 設定遊戲開始畫面
                 // 角色數量不超過玩家數
                 for (int i = numberOfPlayer + 1; i < 6; i++)
@@ -625,7 +673,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     }
                 }
 
-
+                packetMaker();
                 // 關閉彈出視窗
                 dialog1.dismiss();
             });
@@ -885,8 +933,6 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         red.setEnabled(false);
         yellow.setEnabled(false);
 
-
-
         //判定有沒有這顏色的門 by周辰陽
         for(int a= 0;a<4;a++)
         {
@@ -958,7 +1004,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(catacombopen[getnum] == 0)
                 {
                     catacombopen[getnum] = 1;
-                    runOnUiThread(() -> picked.setImageResource(catacomb[getnum]));
+                    picked.setImageResource(catacomb[getnum]);
                     getnum = 13 + getnum;
                     break;
                 }
@@ -1001,7 +1047,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(buildingopen[getnum] == 0)
                 {
                     buildingopen[getnum] = 1;
-                    runOnUiThread(() -> picked.setImageResource(building[getnum]));
+                    picked.setImageResource(building[getnum]);
                     break;
                 }
             }
@@ -1043,7 +1089,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(streetopen[getnum] == 0)
                 {
                     streetopen[getnum] = 1;
-                    runOnUiThread(() -> picked.setImageResource(street[getnum]));
+                    picked.setImageResource(street[getnum]);
                     getnum = 28 + getnum;
                     break;
                 }
@@ -1053,16 +1099,19 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         });
         up.setOnClickListener(vUp -> {
             //放置抽到的板塊
-            runOnUiThread(() -> Plate[plateX][plateY - 1].setImageResource(allroom[getnum]));
+            Plate[plateX][plateY - 1].setImageResource(allroom[getnum]);
             Plate[plateX][plateY - 1].setRotation(degree[0]); // 剛剛新增用來選轉的
             door[plateX][plateY - 1] = allroomdoor[getnum];
             maproom[plateX][plateY-1] = getnum;
 
+            // 封包內容
             openplate = true;
+            newPlateThings = "1";
             newPlateThings += String.format("%02d", plateX);
             newPlateThings += String.format("%02d", plateY-1);
             newPlateThings += String.format("%02d", getnum);
-            newPlateThings += door[plateX][plateY-1] + door[plateX-1][plateY-1] + door[plateX+1][plateY-1] + door[plateX][plateY-2] + door[plateX][plateY];
+            newPlateThings += String.format("%03d", degree[0]);
+            newPlateThings += door[plateX][plateY-1] + door[plateX][plateY-2] + door[plateX][plateY] + door[plateX-1][plateY-1] + door[plateX+1][plateY-1];
             packetMaker();
 
             //改變抽到的板塊變數
@@ -1166,16 +1215,19 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         });
         down.setOnClickListener(vDown -> {
             //放置抽到的板塊
-            runOnUiThread(() -> Plate[plateX][plateY+1].setImageResource(allroom[getnum]));
+            Plate[plateX][plateY+1].setImageResource(allroom[getnum]);
             Plate[plateX][plateY+1].setRotation(degree[0]);
             door[plateX][plateY + 1] = allroomdoor[getnum];
             maproom[plateX][plateY+1] = getnum;
 
+            // 封包內容
             openplate = true;
+            newPlateThings = "1";
             newPlateThings += String.format("%02d", plateX);
             newPlateThings += String.format("%02d", plateY+1);
             newPlateThings += String.format("%02d", getnum);
-            newPlateThings += door[plateX][plateY+1] + door[plateX-1][plateY+1] + door[plateX+1][plateY+1] + door[plateX][plateY] + door[plateX][plateY+2];
+            newPlateThings += String.format("%03d", degree[0]);
+            newPlateThings += door[plateX][plateY+1] + door[plateX][plateY] + door[plateX][plateY+2] + door[plateX-1][plateY+1] + door[plateX+1][plateY+1];
             packetMaker();
 
             //改變抽到的板塊變數
@@ -1278,16 +1330,19 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         });
         left.setOnClickListener(vDown -> {
             //放置抽到的板塊
-            runOnUiThread(() -> Plate[plateX-1][plateY].setImageResource(allroom[getnum]));
+            Plate[plateX-1][plateY].setImageResource(allroom[getnum]);
             Plate[plateX-1][plateY].setRotation(degree[0]);
             door[plateX-1][plateY] = allroomdoor[getnum];
             maproom[plateX-1][plateY] = getnum;
 
+            // 封包內容
             openplate = true;
+            newPlateThings = "1";
             newPlateThings += String.format("%02d", plateX-1);
             newPlateThings += String.format("%02d", plateY);
             newPlateThings += String.format("%02d", getnum);
-            newPlateThings += door[plateX-1][plateY] + door[plateX-2][plateY] + door[plateX][plateY] + door[plateX-1][plateY-1] + door[plateX-1][plateY+1];
+            newPlateThings += String.format("%03d", degree[0]);
+            newPlateThings += door[plateX-1][plateY] + door[plateX-1][plateY-1] + door[plateX-1][plateY+1] + door[plateX-2][plateY] + door[plateX][plateY];
             packetMaker();
 
             //改變抽到的板塊變數
@@ -1390,16 +1445,19 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         });
         right.setOnClickListener(vRight -> {
             //放置抽到的板塊
-            runOnUiThread(() -> Plate[plateX+1][plateY].setImageResource(allroom[getnum]));
+            Plate[plateX+1][plateY].setImageResource(allroom[getnum]);
             Plate[plateX+1][plateY].setRotation(degree[0]);
             door[plateX+1][plateY] = allroomdoor[getnum];
             maproom[plateX+1][plateY] = getnum;
 
+            // 封包內容
             openplate = true;
+            newPlateThings = "1";
             newPlateThings += String.format("%02d", plateX+1);
             newPlateThings += String.format("%02d", plateY);
             newPlateThings += String.format("%02d", getnum);
-            newPlateThings += door[plateX+1][plateY] + door[plateX][plateY] + door[plateX+2][plateY] + door[plateX+1][plateY-1] + door[plateX+1][plateY+1];
+            newPlateThings += String.format("%03d", degree[0]);
+            newPlateThings += door[plateX+1][plateY] + door[plateX+1][plateY-1] + door[plateX+1][plateY+1] + door[plateX][plateY] + door[plateX+2][plateY];
             packetMaker();
 
             //改變抽到的板塊變數
@@ -1504,8 +1562,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     //判斷可不可以放
-    public void check(ImageButton up,ImageButton down,ImageButton left,ImageButton right,int getnum)
-    {
+    public void check(ImageButton up,ImageButton down,ImageButton left,ImageButton right,int getnum) {
         switch (which)
         {
             case 0:
@@ -1590,55 +1647,54 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     //判斷該板塊有沒有事情發生 by周辰陽
-    public void happend(int getnum)
-    {
+    public void happend(int getnum) {
         switch(getnum)
         {
             //帶有事件的房間
             case 0: case 2: case 4: case 5:case 6:case 8:case 10:case 15: case 17: case 20:case 28:case 31:case 34:case 38:case 39:case 40: case 41:
-                LayoutInflater inflater = LayoutInflater.from(context);
-                View v = inflater.inflate(R.layout.event, null);
-                // 宣告一個彈出視窗
-                AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                alert.setView(v);
-                // 顯示
-                AlertDialog dialog = alert.create();
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.setCancelable(false);
-                // objects in XML
-                ImageView card_type = v.findViewById(R.id.card_type);
-                TextView Title = v.findViewById(R.id.title);
-                TextView body = v.findViewById(R.id.body);
-                TextView body2 = v.findViewById(R.id.body2);
-                Button close = v.findViewById(R.id.close);
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View v = inflater.inflate(R.layout.event, null);
+            // 宣告一個彈出視窗
+            AlertDialog.Builder alert = new AlertDialog.Builder(context);
+            alert.setView(v);
+            // 顯示
+            AlertDialog dialog = alert.create();
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
+            // objects in XML
+            ImageView card_type = v.findViewById(R.id.card_type);
+            TextView Title = v.findViewById(R.id.title);
+            TextView body = v.findViewById(R.id.body);
+            TextView body2 = v.findViewById(R.id.body2);
+            Button close = v.findViewById(R.id.close);
 
-                //關掉的按鈕
-                close.setOnClickListener(new View.OnClickListener()
+            //關掉的按鈕
+            close.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
                 {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        dialog.dismiss();
-                    }
-                });
-
-                // *記得所有有關畫面的變更要在dialog.show()之前完成
-                //幾號事件並呼叫 by周辰陽
-                int num = 0;
-                while(true)
-                {
-                    num = (int)(Math.random()*35);
-                    if(event[num]==0)
-                    {
-                        event[num] = 1;
-                        break;
-                    }
+                    dialog.dismiss();
                 }
-                Title.setText(eventname[num]);
-                body.setText(eventword[num]);
-                Event(num,body2);
-                reset();
-                dialog.show();
+            });
+
+            // *記得所有有關畫面的變更要在dialog.show()之前完成
+            //幾號事件並呼叫 by周辰陽
+            int num = 0;
+            while(true)
+            {
+                num = (int)(Math.random()*35);
+                if(event[num]==0)
+                {
+                    event[num] = 1;
+                    break;
+                }
+            }
+            Title.setText(eventname[num]);
+            body.setText(eventword[num]);
+            Event(num,body2);
+            reset();
+            dialog.show();
             break;
             //帶有物品的房間
             case 7: case 9: case 11: case 12: case 25: case 26: case 27: case 36:
@@ -1705,16 +1761,20 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                                 myClientID = msgFromServer.charAt(7) - 48;
                             // 顯示玩家人數
                             runOnUiThread(() ->
-                                    population.setText("目前玩家人數 : " + numberOfPlayer));
+                                    population.setText("玩家人數 : " + numberOfPlayer));
                             break;
                         case '1':
                             // 第 1 格代表誰的回合
                             if (msgFromServer.charAt(1) - 48 == myClientID) {
                                 roundOver = 0;
                                 myRound = true;
-                                runOnUiThread(() -> RoundOver.setVisibility(View.VISIBLE));
+                                runOnUiThread(() -> {
+                                    RoundOver.setVisibility(View.VISIBLE);
+                                });
                             } else {
-                                runOnUiThread(() -> RoundOver.setVisibility(View.GONE));
+                                runOnUiThread(() -> {
+                                    RoundOver.setVisibility(View.GONE);
+                                });
                             }
                             // 角色 1~5 的座標
                             int from=2, to=7;
@@ -1749,21 +1809,25 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                             }
                             break;
                         case '3':
-                            if(!myRound && msgFromServer.charAt(1) == '1'){
-                                int x = Integer.parseInt(msgFromServer.substring(2, 4));
-                                int y = Integer.parseInt(msgFromServer.substring(4, 6));
-                                int id = Integer.parseInt(msgFromServer.substring(6, 8));
-                                System.out.println(x + " " + y + " " + id);
-                                maproom[x][y] = id; // 更新地圖記錄
-                                door[x][y] = msgFromServer.substring(8, 12);
-                                door[x-1][y] = msgFromServer.substring(12, 16);
-                                door[x+1][y] = msgFromServer.substring(16, 20);
-                                door[x][y-1] = msgFromServer.substring(20, 24);
-                                door[x][y+1] = msgFromServer.substring(24, 28);
-                                runOnUiThread(()->{ Plate[x][y].setImageResource(allroom[id]);});
-                                if (id < 13) buildingopen[id] = 1;
-                                else if (id < 28) catacombopen[id - 12] = 1;
-                                else streetopen[id - 28] = 1;
+                            if(msgFromServer.charAt(1) == '1'){
+                                int x = Integer.parseInt(msgFromServer.substring(2,4));
+                                int y = Integer.parseInt(msgFromServer.substring(4,6));
+                                int id = Integer.parseInt(msgFromServer.substring(6,8));
+                                int deg = Integer.parseInt(msgFromServer.substring(8,11));
+                                System.out.println(x + " " + y + " " + deg);
+                                maproom[x][y] = id;
+                                runOnUiThread(()->{
+                                    Plate[x][y].setImageResource(allroom[id]);
+                                    Plate[x][y].setRotation(deg);
+                                });
+                                door[x][y] = msgFromServer.substring(11,15);
+                                door[x][y-1] = msgFromServer.substring(15,19);
+                                door[x][y+1] = msgFromServer.substring(19,23);
+                                door[x-1][y] = msgFromServer.substring(23,27);
+                                door[x+1][y] = msgFromServer.substring(27,31);
+                                if(id < 13) buildingopen[id] = 1;
+                                else if (id < 28) catacombopen[id-13] = 1;
+                                else streetopen[id-28] = 1;
                             }
                             break;
                     }
@@ -1775,14 +1839,14 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     //把畫面全螢幕 by周辰陽
     protected void onResume()
     {
-            super.onResume();
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     //發生的事件判定與文本
@@ -2575,7 +2639,6 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     //更新數值
-    @SuppressLint("SetTextI18n")
     public void reset()
     {
         TextView myMight = findViewById(R.id.myMight);
