@@ -29,7 +29,7 @@
               android:layout_centerHorizontal="true"
               android:layout_below="@id/title"
               android:layout_marginTop="20dp"
-              android:textSize="16dp"
+              android:textSize="12dp"
               android:textStyle="bold"
               android:text="dadwdadadnqwertyuiopqwertyuiopqwertyuiopqw"
               android:id="@+id/body">
@@ -40,7 +40,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/body"
         android:layout_marginTop="20dp"
-        android:textSize="16dp"
+        android:textSize="12dp"
         android:textStyle="bold"
         android:text="uiopqwertyuiopqwertyuiopqwertyuiopnqwertyuiopqwertyuiopqwertyuiopqwertyuiopn"
         android:id="@+id/body2">

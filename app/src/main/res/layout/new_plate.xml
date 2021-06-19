@@ -13,6 +13,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/howisnow"
         ></TextView>
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/X"
+            android:text="X"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+    </Button>
     <!-- 三色牌堆 -->
     <LinearLayout android:layout_width="wrap_content"
                   android:layout_height="match_parent"
@@ -71,6 +79,8 @@
                  android:layout_toRightOf="@id/up"
                  android:layout_alignParentBottom="true"
                  android:layout_marginBottom="20dp"
+                 android:src="@drawable/right"
+                 android:scaleType="fitXY"
                  android:id="@+id/right">
     </ImageButton>
     <ImageButton android:layout_width="100dp"
@@ -78,6 +88,8 @@
                  android:layout_centerHorizontal="true"
                  android:layout_alignParentBottom="true"
                  android:layout_marginBottom="20dp"
+                 android:src="@drawable/down"
+                 android:scaleType="fitXY"
                  android:id="@+id/down">
     </ImageButton>
     <ImageButton android:layout_width="100dp"
@@ -85,6 +97,8 @@
                  android:layout_centerHorizontal="true"
                  android:layout_above="@id/down"
                  android:layout_marginBottom="-20dp"
+                 android:src="@drawable/up"
+                 android:scaleType="fitXY"
                  android:id="@+id/up">
     </ImageButton>
     <ImageButton android:layout_width="50dp"
@@ -92,6 +106,8 @@
                  android:layout_toLeftOf="@id/up"
                  android:layout_alignParentBottom="true"
                  android:layout_marginBottom="20dp"
+                 android:src="@drawable/left"
+                 android:scaleType="fitXY"
                  android:id="@+id/left">
     </ImageButton>
     <!-- 旋轉 -->
@@ -100,6 +116,8 @@
                  android:layout_alignParentBottom="true"
                  android:layout_marginLeft="20dp"
                  android:layout_marginBottom="20dp"
+                 android:src="@drawable/rotate"
+                 android:scaleType="fitXY"
                  android:id="@+id/rotate">
 
     </ImageButton>

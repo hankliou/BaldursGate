@@ -4,15 +4,16 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.annotation.RequiresApi;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends Activity implements JoystickView.JoystickListener {
 
@@ -254,7 +255,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     int NextRoundMove;
 
     //事件 by 周辰陽
-    int event[] = new int[35];
+    int[] event = new int[35];
     boolean NextDiceZero = false;
     boolean DrawItem = false;
 
@@ -299,7 +300,6 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     boolean[] alive = { true, true, true, true, true, true }; // 是否還活著(由SERVER告知)
     boolean openplate = false;          // 有沒有開新板塊
     String newPlateThings;
-
 
     // 連線物件
     Socket clientSocket;        //客戶端的socket
@@ -455,6 +455,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         PlateLayout.setTranslationY((int) PlateLayout.getY()-visionY - dp *1.2f*9f + 500);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onJoystickMoved(float xPercent, float yPercent, int id){
 
@@ -470,51 +471,52 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     plateY = (playerY[myClientID] + 4500) / 600;
 
                     // 移動玩家 (單純顯示)
+
                     // X
                     if(maproom[(playerX[myClientID] + TransDP(x) + 7220) / 600][plateY] > -1){
-                        //if((playerX[myClientID] + TransDP(x) + 7220) / 600 != plateX && CanPass(plateX, plateY, ((playerX[myClientID] + TransDP(x) + 7220) / 600), plateY)) {
+                        if((playerX[myClientID] + TransDP(x) + 7220) / 600 != plateX && CanPass(plateX, plateY, ((playerX[myClientID] + TransDP(x) + 7220) / 600), plateY)) {
                         // 移動玩家 (單純顯示)
                         role[myClientID].setTranslationX(role[myClientID].getX() + x);
                         // 移動玩家 (更新絕對座標)
                         playerX[myClientID] += TransDP(x);
                         // 算板塊 XY
                         plateX = (playerX[myClientID] + 7220) / 600;
-                        //}
-//                        else if ((playerX[myClientID] + TransDP(x) + 7220) / 600 == plateX) {
-//                            // 移動玩家 (單純顯示)
-//                            role[myClientID].setTranslationX(role[myClientID].getX() + x);
-//                            // 移動玩家 (更新絕對座標)
-//                            playerX[myClientID] += TransDP(x);
-//                            // 算板塊 XY
-//                            plateX = (playerX[myClientID] + 7220) / 600;
-//                        }
+                        }
+                        else if ((playerX[myClientID] + TransDP(x) + 7220) / 600 == plateX) {
+                            // 移動玩家 (單純顯示)
+                            role[myClientID].setTranslationX(role[myClientID].getX() + x);
+                            // 移動玩家 (更新絕對座標)
+                            playerX[myClientID] += TransDP(x);
+                            // 算板塊 XY
+                            plateX = (playerX[myClientID] + 7220) / 600;
+                        }
                     }
 
                     // Y
                     if(maproom[plateX][(playerY[myClientID] + TransDP(y) + 4500) / 600] > -1){
-                        //if((playerY[myClientID] + TransDP(y) + 4500) / 600 != plateY && CanPass(plateX, plateY, plateX, (playerY[myClientID] + TransDP(y) + 4500) / 600)){
+                        if((playerY[myClientID] + TransDP(y) + 4500) / 600 != plateY && CanPass(plateX, plateY, plateX, (playerY[myClientID] + TransDP(y) + 4500) / 600)){
                         // 移動玩家 (單純顯示)
                         role[myClientID].setTranslationY(role[myClientID].getY() + y);
                         // 移動玩家 (更新絕對座標)
                         playerY[myClientID] += TransDP(y);
                         // 算板塊 XY
                         plateY = (playerY[myClientID] + 4500) / 600;
-                        //}
-//                        else if((playerY[myClientID] + TransDP(y) + 4500) / 600 == plateY){
-//                            // 移動玩家 (單純顯示)
-//                            role[myClientID].setTranslationY(role[myClientID].getY() + y);
-//                            // 移動玩家 (更新絕對座標)
-//                            playerY[myClientID] += TransDP(y);
-//                            // 算板塊 XY
-//                            plateY = (playerY[myClientID] + 4500) / 600;
-//                        }
+                        }
+                        else if((playerY[myClientID] + TransDP(y) + 4500) / 600 == plateY){
+                            // 移動玩家 (單純顯示)
+                            role[myClientID].setTranslationY(role[myClientID].getY() + y);
+                            // 移動玩家 (更新絕對座標)
+                            playerY[myClientID] += TransDP(y);
+                            // 算板塊 XY
+                            plateY = (playerY[myClientID] + 4500) / 600;
+                        }
                     }
 
                     // 做成封包
                     packetMaker();
 
-                    coor.setText("X: "+playerX[myClientID] + " Y: "+playerY[myClientID]+" PX: "+plateX + " PY: "+plateY);
-                    coor1.setText("ID: "+myClientID);
+//                    coor.setText("X: "+playerX[myClientID] + " Y: "+playerY[myClientID]+" PX: "+plateX + " PY: "+plateY);
+//                    coor1.setText("ID: "+myClientID);
 
                 }
                 break;
@@ -538,34 +540,19 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     public boolean CanPass(int nowx, int nowy, int gox, int goy) {
-        if(gox > nowx) {
-            if(door[nowx][nowy].charAt(1) == 'G')
-                return true;
-            else
-                return false;
-        }
-        if(gox < nowx) {
-            if(door[nowx][nowy].charAt(3) == 'G')
-                return true;
-            else
-                return false;
-        }
-        if(nowy > goy) {
-            if(door[nowx][nowy].charAt(0) == 'G')
-                return true;
-            else
-                return false;
-        }
-        if(nowy < goy) {
-            if(door[nowx][nowy].charAt(2) == 'G')
-                return true;
-            else
-                return false;
-        }
+        if(gox > nowx)
+            return door[nowx][nowy].charAt(1) == 'G';
+        if(gox < nowx)
+            return door[nowx][nowy].charAt(3) == 'G';
+        if(nowy > goy)
+            return door[nowx][nowy].charAt(0) == 'G';
+        if(nowy < goy)
+            return door[nowx][nowy].charAt(2) == 'G';
         return false;
     }
 
     // 封包切割機
+    @SuppressLint("DefaultLocale")
     void packetMaker(){
 
         // 清空字串
@@ -730,137 +717,108 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         final Button item4 = v.findViewById(R.id.item4);
         final Button item5 = v.findViewById(R.id.item5);
         final Button item6 = v.findViewById(R.id.item6);
-        final TextView itemname = v.findViewById(R.id.itemname);
-        final TextView itemcontext = v.findViewById(R.id.itemcontext);
-        final TextView itemcontext2 = v.findViewById(R.id.itemcontext2);
+        final TextView itemName = v.findViewById(R.id.itemname);
+        final TextView itemContext = v.findViewById(R.id.itemcontext);
+        final TextView itemContext2 = v.findViewById(R.id.itemcontext2);
         //final Button get = v.findViewById(R.id.get);
 
         // 宣告一個彈出視窗
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setView(v);
         // 顯示
+
         AlertDialog dialog = alert.create();
+        dialog.setView(v);
         dialog.show();
 
         //背包物品的按鈕 by周辰陽
-        item1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        item1.setOnClickListener(v1 -> {
+            clickitemnow = 1;
+            if(bag[0] != -1)
             {
-                clickitemnow = 1;
-                if(bag[0] != -1)
-                {
-                    itemname.setText(AllItemName[bag[0]]);
-                    itemcontext.setText(itemword[bag[0]]);
-                    itemcontext2.setText(itemword2[bag[0]]);
-                }
-                else
-                {
-                    itemname.setText("沒有物品");
-                    itemcontext.setText("沒有物品");
-                    itemcontext2.setText("沒有物品");
-                }
+                itemName.setText(AllItemName[bag[0]]);
+                itemContext.setText(itemword[bag[0]]);
+                itemContext2.setText(itemword2[bag[0]]);
+            }
+            else
+            {
+                itemName.setText("沒有物品");
+                itemContext.setText("沒有物品");
+                itemContext2.setText("沒有物品");
             }
         });
-        item2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        item2.setOnClickListener(v12 -> {
+            clickitemnow = 2;
+            if(bag[1] != -1)
             {
-                clickitemnow = 2;
-                if(bag[1] != -1)
-                {
-                    itemname.setText(AllItemName[bag[1]]);
-                    itemcontext.setText(itemword[bag[1]]);
-                    itemcontext2.setText(itemword2[bag[1]]);
-                }
-                else
-                {
-                    itemname.setText("沒有物品");
-                    itemcontext.setText("沒有物品");
-                    itemcontext2.setText("沒有物品");
-                }
+                itemName.setText(AllItemName[bag[1]]);
+                itemContext.setText(itemword[bag[1]]);
+                itemContext2.setText(itemword2[bag[1]]);
+            }
+            else
+            {
+                itemName.setText("沒有物品");
+                itemContext.setText("沒有物品");
+                itemContext2.setText("沒有物品");
             }
         });
-        item3.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        item3.setOnClickListener(v13 -> {
+            clickitemnow = 3;
+            if(bag[2] != -1)
             {
-                clickitemnow = 3;
-                if(bag[2] != -1)
-                {
-                    itemname.setText(AllItemName[bag[2]]);
-                    itemcontext.setText(itemword[bag[2]]);
-                    itemcontext2.setText(itemword2[bag[2]]);
-                }
-                else
-                {
-                    itemname.setText("沒有物品");
-                    itemcontext.setText("沒有物品");
-                    itemcontext2.setText("沒有物品");
-                }
+                itemName.setText(AllItemName[bag[2]]);
+                itemContext.setText(itemword[bag[2]]);
+                itemContext2.setText(itemword2[bag[2]]);
+            }
+            else
+            {
+                itemName.setText("沒有物品");
+                itemContext.setText("沒有物品");
+                itemContext2.setText("沒有物品");
             }
         });
-        item4.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        item4.setOnClickListener(v14 -> {
+            clickitemnow = 4;
+            if(bag[3] != -1)
             {
-                clickitemnow = 4;
-                if(bag[3] != -1)
-                {
-                    itemname.setText(AllItemName[bag[3]]);
-                    itemcontext.setText(itemword[bag[3]]);
-                    itemcontext2.setText(itemword2[bag[3]]);
-                }
-                else
-                {
-                    itemname.setText("沒有物品");
-                    itemcontext.setText("沒有物品");
-                    itemcontext2.setText("沒有物品");
-                }
+                itemName.setText(AllItemName[bag[3]]);
+                itemContext.setText(itemword[bag[3]]);
+                itemContext2.setText(itemword2[bag[3]]);
+            }
+            else
+            {
+                itemName.setText("沒有物品");
+                itemContext.setText("沒有物品");
+                itemContext2.setText("沒有物品");
             }
         });
-        item5.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        item5.setOnClickListener(v15 -> {
+            clickitemnow = 5;
+            if(bag[4] != -1)
             {
-                clickitemnow = 5;
-                if(bag[4] != -1)
-                {
-                    itemname.setText(AllItemName[bag[4]]);
-                    itemcontext.setText(itemword[bag[4]]);
-                    itemcontext2.setText(itemword2[bag[4]]);
-                }
-                else
-                {
-                    itemname.setText("沒有物品");
-                    itemcontext.setText("沒有物品");
-                    itemcontext2.setText("沒有物品");
-                }
+                itemName.setText(AllItemName[bag[4]]);
+                itemContext.setText(itemword[bag[4]]);
+                itemContext2.setText(itemword2[bag[4]]);
+            }
+            else
+            {
+                itemName.setText("沒有物品");
+                itemContext.setText("沒有物品");
+                itemContext2.setText("沒有物品");
             }
         });
-        item6.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        item6.setOnClickListener(v16 -> {
+            clickitemnow = 6;
+            if(bag[5] != -1)
             {
-                clickitemnow = 6;
-                if(bag[5] != -1)
-                {
-                    itemname.setText(AllItemName[bag[5]]);
-                    itemcontext.setText(itemword[bag[5]]);
-                    itemcontext2.setText(itemword2[bag[5]]);
-                }
-                else
-                {
-                    itemname.setText("沒有物品");
-                    itemcontext.setText("沒有物品");
-                    itemcontext2.setText("沒有物品");
-                }
+                itemName.setText(AllItemName[bag[5]]);
+                itemContext.setText(itemword[bag[5]]);
+                itemContext2.setText(itemword2[bag[5]]);
+            }
+            else
+            {
+                itemName.setText("沒有物品");
+                itemContext.setText("沒有物品");
+                itemContext2.setText("沒有物品");
             }
         });
 //        get.setOnClickListener(new View.OnClickListener()
@@ -890,18 +848,14 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
 //                }
 //            }
 //        });
-        ubun.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                itemname.setText("沒有物品");
-                itemcontext.setText("沒有物品");
-                itemcontext2.setText("沒有物品");
-                bag[clickitemnow-1] = -1;
-            }
+        ubun.setOnClickListener(v17 -> {
+            itemName.setText("沒有物品");
+            itemContext.setText("沒有物品");
+            itemContext2.setText("沒有物品");
+            bag[clickitemnow-1] = -1;
         });
     }
+
     // 回合結束按鈕
     public void roundOver(View view) {
         roundOver = 1;
@@ -909,6 +863,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         roundOver = 2;
         myRound = false;
     }
+
     // 擲骰子按鈕
     @SuppressLint("DefaultLocale")
     public void newPlate(View view) {
@@ -935,6 +890,9 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         ImageView origin = v.findViewById(R.id.origin);
         TextView textView = v.findViewById(R.id.howisnow);
         textView.setText(door[plateX][plateY]);
+        Button X = v.findViewById(R.id.X);
+        X.setVisibility(View.VISIBLE);
+        X.setOnClickListener(x -> dialog.dismiss());
 
         // 這裡()裡面讓他的圖片跟玩家腳下的同一張
         origin.setImageResource(maproom[plateX][plateY]);
@@ -951,8 +909,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         yellow.setEnabled(false);
 
         //判定有沒有這顏色的門 by周辰陽
-        for(int a= 0;a<4;a++)
-        {
+        for(int a= 0;a<4;a++) {
             if(door[plateX][plateY].charAt(a)=='B')
             {
                 blue.setEnabled(true);
@@ -968,8 +925,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         // 按鈕事件
         // 變數
         int[] degree = {0};
-        rotate.setOnClickListener(vRotate ->
-        {
+        rotate.setOnClickListener(vRotate -> {
             degree[0] += 90;
             picked.setRotation(degree[0]);
 
@@ -986,6 +942,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             check(up,down,left,right,getnum);
         });
         blue.setOnClickListener(vBlue -> {
+            X.setVisibility(View.GONE);
             red.setVisibility(View.GONE);
             blue.setVisibility(View.GONE);
             yellow.setVisibility(View.GONE);
@@ -1030,6 +987,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             check(up,down,left,right,getnum);
         });
         red.setOnClickListener(vRed -> {
+            X.setVisibility(View.GONE);
             red.setVisibility(View.GONE);
             blue.setVisibility(View.GONE);
             yellow.setVisibility(View.GONE);
@@ -1072,6 +1030,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             check(up,down,left,right,getnum);
         });
         yellow.setOnClickListener(vYellow -> {
+            X.setVisibility(View.GONE);
             red.setVisibility(View.GONE);
             blue.setVisibility(View.GONE);
             yellow.setVisibility(View.GONE);
@@ -1237,7 +1196,6 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 Plate[plateX][plateY+1].setImageResource(allroom[getnum]);
                 Plate[plateX][plateY+1].setRotation(degree[0]);
             });
-            ;
             door[plateX][plateY + 1] = allroomdoor[getnum];
             maproom[plateX][plateY+1] = getnum;
 
@@ -1355,7 +1313,6 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 Plate[plateX-1][plateY].setImageResource(allroom[getnum]);
                 Plate[plateX-1][plateY].setRotation(degree[0]);
             });
-            ;
             door[plateX-1][plateY] = allroomdoor[getnum];
             maproom[plateX-1][plateY] = getnum;
 
@@ -1698,7 +1655,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             close.setOnClickListener(v1 -> dialog.dismiss());
 
             //幾號事件並呼叫 by周辰陽
-            int num = 0;
+            int num;
             while(true)
             {
                 num = (int)(Math.random()*35);
@@ -1781,8 +1738,10 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             } catch (IOException e) {} // 就算有例外我也沒辦法處裡
         }
     }
+
     // 接收訊息的執行緒
     class StartASocket implements Runnable{
+        @SuppressLint("SetTextI18n")
         @Override
         public void run(){
             // 嘗試開一個接收器
@@ -1817,13 +1776,9 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                             if (msgFromServer.charAt(1) - '0' == myClientID) {
                                 roundOver = 0;
                                 myRound = true;
-                                runOnUiThread(() -> {
-                                    RoundOver.setVisibility(View.VISIBLE);
-                                });
+                                runOnUiThread(() -> RoundOver.setVisibility(View.VISIBLE));
                             } else {
-                                runOnUiThread(() -> {
-                                    RoundOver.setVisibility(View.GONE);
-                                });
+                                runOnUiThread(() -> RoundOver.setVisibility(View.GONE));
                             }
                             // 角色 1~5 的座標
                             int from=2, to=7;
@@ -1887,8 +1842,8 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     //把畫面全螢幕 by周辰陽
-    protected void onResume()
-    {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    protected void onResume() {
         super.onResume();
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -1900,12 +1855,10 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     //發生的事件判定與文本
-    public void Event(int num,TextView context2)
-    {
+    public void Event(int num,TextView context2) {
         int GoDice = 0;
         int choose = 0;
-        switch(num)
-        {
+        switch(num) {
             case 0:
                 GoDice = dice(character.chara[characterIndex[myClientID]].Knowledge[character.chara[characterIndex[myClientID]].currentKnowledge]);
                 if(GoDice>=4)
@@ -2673,8 +2626,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     //判定骰子
-    public int dice(int get)
-    {
+    public int dice(int get) {
         int total = 0;
         for(int a =0;a<get;a++)
         {
@@ -2689,8 +2641,8 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     //更新數值
-    public void reset()
-    {
+    @SuppressLint("SetTextI18n")
+    public void reset() {
         TextView myMight1 = findViewById(R.id.myMight);
         TextView mySpeed1 = findViewById(R.id.mySpeed);
         TextView mySanity1 = findViewById(R.id.mySanity);

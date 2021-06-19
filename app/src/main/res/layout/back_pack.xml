@@ -81,14 +81,12 @@
             android:textStyle="bold"
             android:textSize="17dp"
             android:id="@+id/itemname"
-            android:text="物品名稱"
     />
     <TextView
             android:layout_width="155dp"
             android:layout_height="100dp"
             android:layout_marginLeft="50dp"
             android:id="@+id/itemcontext"
-            android:text="物品描述"
             android:layout_below="@+id/itemname"
     />
     <TextView
@@ -96,7 +94,6 @@
             android:layout_height="125dp"
             android:layout_marginLeft="50dp"
             android:id="@+id/itemcontext2"
-            android:text="物品使用說明"
             android:layout_below="@+id/itemcontext"
     />
     <!--
