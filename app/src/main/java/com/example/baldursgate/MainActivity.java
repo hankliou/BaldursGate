@@ -465,12 +465,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     // X
                     if(maproom[(playerX[myClientID] + TransDP(x) + 7220) / 600][plateY] > -1){
                         //if((playerX[myClientID] + TransDP(x) + 7220) / 600 != plateX && CanPass(plateX, plateY, ((playerX[myClientID] + TransDP(x) + 7220) / 600), plateY)) {
-                        // 移動玩家 (單純顯示)
-                        role[myClientID].setTranslationX(role[myClientID].getX() + x);
-                        // 移動玩家 (更新絕對座標)
-                        playerX[myClientID] += TransDP(x);
-                        // 算板塊 XY
-                        plateX = (playerX[myClientID] + 7220) / 600;
+                            // 移動玩家 (單純顯示)
+                            role[myClientID].setTranslationX(role[myClientID].getX() + x);
+                            // 移動玩家 (更新絕對座標)
+                            playerX[myClientID] += TransDP(x);
+                            // 算板塊 XY
+                            plateX = (playerX[myClientID] + 7220) / 600;
                         //}
 //                        else if ((playerX[myClientID] + TransDP(x) + 7220) / 600 == plateX) {
 //                            // 移動玩家 (單純顯示)
@@ -485,12 +485,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     // Y
                     if(maproom[plateX][(playerY[myClientID] + TransDP(y) + 4500) / 600] > -1){
                         //if((playerY[myClientID] + TransDP(y) + 4500) / 600 != plateY && CanPass(plateX, plateY, plateX, (playerY[myClientID] + TransDP(y) + 4500) / 600)){
-                        // 移動玩家 (單純顯示)
-                        role[myClientID].setTranslationY(role[myClientID].getY() + y);
-                        // 移動玩家 (更新絕對座標)
-                        playerY[myClientID] += TransDP(y);
-                        // 算板塊 XY
-                        plateY = (playerY[myClientID] + 4500) / 600;
+                            // 移動玩家 (單純顯示)
+                            role[myClientID].setTranslationY(role[myClientID].getY() + y);
+                            // 移動玩家 (更新絕對座標)
+                            playerY[myClientID] += TransDP(y);
+                            // 算板塊 XY
+                            plateY = (playerY[myClientID] + 4500) / 600;
                         //}
 //                        else if((playerY[myClientID] + TransDP(y) + 4500) / 600 == plateY){
 //                            // 移動玩家 (單純顯示)
@@ -2645,9 +2645,9 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         TextView mySpeed = findViewById(R.id.mySpeed);
         TextView mySanity = findViewById(R.id.mySanity);
         TextView myKnowledge = findViewById(R.id.myKnowledge);
-        mySpeed.setText(character.chara[characterIndex[myClientID]].currentSpeed);
-        myMight.setText(character.chara[characterIndex[myClientID]].currentMight);
-        mySanity.setText(character.chara[characterIndex[myClientID]].currentSanity);
-        myKnowledge.setText(character.chara[characterIndex[myClientID]].currentKnowledge);
+        mySpeed.setText("速度:" + character.chara[characterIndex[myClientID]].currentSpeed);
+        myMight.setText("力量:" + character.chara[characterIndex[myClientID]].currentMight);
+        mySanity.setText("心智:" + character.chara[characterIndex[myClientID]].currentSanity);
+        myKnowledge.setText("知識:" + character.chara[characterIndex[myClientID]].currentKnowledge);
     }
 }
