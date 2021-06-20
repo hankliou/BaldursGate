@@ -54,23 +54,23 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             ,"擁有潛在能量的鋸齒狀標槍，發出陣陣嗡鳴聲。"
             ,"一條薄薄的金鍊上的愛情紀念品。"
     };
-    String[] itemword2 = {"使用後當你下次受到物理傷害時，做一個速度3+檢定，若你成功，你免疫傷害，當成功使用後棄掉此物品。"
-            ,"使用後下次攻擊以速度進行攻擊（敵人用速度防禦）。在你的速度攻擊中擲 1 個額外的骰(最多 8 顆)。當你使用此武器就不能使用其他武器。"
-            ,"使用後下次擲骰多擲 2 顆骰子，之後就受到 1 級精神傷害。"
-            ,"每當你受到物理傷害，就減少 1 級傷害。"
-            ,"取得 1 級知識。當你攻擊給予傷害時，你可以造成額外 1 點精神傷害，若你失去聖符，就失去 1 級知識。"
-            ,"取代正常攻擊，敵人進行速度檢定，擲出4以下受到4點傷害。"
+    String[] itemword2 = {"使用後當你下次受到物理傷害時，做一個速度3+檢定，若你成功，你免疫傷害，並棄掉此物品。"
+            ,"使用後，下次攻擊以速度進行攻擊（敵人用速度防禦）。在你的速度攻擊中擲 1 個額外的骰(最多 8 顆)。當你使用此武器就不能使用其他武器。"
+            ,"使用後，下次擲骰多擲 2 顆骰子，之後就受到 1 級精神傷害。"
+            ,"使用後，每當你受到物理傷害，就減少 1 級傷害。"
+            ,"使用後，取得 1 級知識。當你攻擊給予傷害時，你可以造成額外 1 點精神傷害。"
+            ,"使用後，下次攻擊取代正常攻擊，敵人進行速度檢定，擲出4以下受到4點傷害，使用後棄掉。"
             ,"在你的回合結束時，只要有屬性位於最低值，你就可以取得 1 級符合條件的一種屬性。"
-            ,"使用後當你下次要做力量檢定時，你可以使用此道具來額外增加 2 個骰 (最多 8 個骰)，使用後棄掉此卡。"
-            ,"一回合一次，使用後將重擲結果為 0 的所有骰子，並保留第二次擲骰的結果。每個重擲後結果仍然為 0 的骰子，就令你受到 1 級精神傷害。"
-            ,"使用後下一個事件卡會導致你受傷時，將傷害變為0，並棄掉此物品"
-            ,"使用後當你攻擊造成物理傷害時，令傷害增加[1 顆骰子+1]，並棄掉此卡。"
-            ,"使用後隨機偷取一件玩家物品，並棄掉此卡。"
-            ,"使用後 如果你的力量或速度低於初始值，將他們恢復到初始值，並棄掉此卡。"
-            ,"使用後當你下次要做速度檢定時，額外增加 2 個骰 (最多 8 個骰)。並且可以額外多移動 2 步。使用後棄掉此卡。"
+            ,"使用後，當你下次擲骰時，你可以使用此道具來額外增加 2 個骰 (最多 8 個骰)，使用後棄掉此卡。"
+            ,"使用後，下次擲骰使用後將重擲結果為 0 的所有骰子，並保留第二次擲骰的結果。每個重擲後結果仍然為 0 的骰子，就令你受到 1 級精神傷害。"
+            ,"使用後，下一次你受傷時，將傷害變為0，並棄掉此物品"
+            ,"使用後，當你攻擊造成物理傷害時，令傷害增加[1 顆骰子+1]，並棄掉此卡。"
+            ,"使用後，隨機偷取一件玩家物品，並棄掉此卡。"
+            ,"使用後，如果你的力量或速度低於初始值，將他們恢復到初始值，並棄掉此卡。"
+            ,"使用後，當你下次要做速度檢定時，額外增加 2 個骰 (最多 8 個骰)。並且可以額外多移動 2 步。使用後棄掉此卡。"
             ,"使用後，下次進行力量攻擊時，你額外擲 1 顆骰(最多 8 個骰)，使用此武器時不能使用其他武器。"
             ,"使用後，下次攻擊取代正常攻擊，目標會受到 2 個骰的物理傷害，使用此武器時不能使用其他武器，，並棄掉此卡。"
-            ,"取得 1 級心智，每當你受到精神傷害時，減少 1 級傷害，若你失去項鍊墜，就失去 1 級心智。"
+            ,"使用後，取得 1 級心智，每當你受到精神傷害時，減少 1 級傷害。"
     };
 
     //事件的文字敘述 by周辰陽
@@ -248,16 +248,32 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     private final int[] streetopen = new int[14];         // 開過哪些房間
     private final String[][] door = new String[25][15];   // 這房間的4個門的狀態
     int getnum = -1;                                      // 哪一個板塊(隨機取數)
-    int times = 0;                                        //旋轉次數
+    int times = 0;                                        // 旋轉次數
     int which = -1;
 
     //下回合可以移動的步數 by周辰陽
     int NextRoundMove;
 
+    //攻擊
+    int howmany = 0;
+    int who[] = { 0, 0, 0, 0 };
+    boolean ifAttack = false;       // 如果發生攻擊事件
+    int idGettingHurt = 0;          // 誰被打了?
+    int hurtingType = 0;            // 什麼種類?
+    int hurthowmuch;                // 有多痛?
+
     //事件 by 周辰陽
-    int[] event = new int[35];
+    int event[] = new int[35];
     boolean NextDiceZero = false;
     boolean DrawItem = false;
+    int EventId = 99;                    // 抽到的事件編號
+    int ItemId = 99;                     // 抽到的物品編號
+
+
+    //作祟卡片
+    int omancard = 0;
+    int script = 9;
+    boolean secondround = false;
 
     // Android 物件 (封面)
     Context context;
@@ -276,6 +292,23 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     ImageView[] head;
     TextView[][] playerAttribute;       // 角色屬性值
     Button RoundOver;
+
+    //物品效果
+    boolean defend3 = false;        //物品1效果
+    boolean moredice2 = false;
+    boolean lessphyhurt = false;
+    boolean getknow = false;
+    boolean morespihurt = false;
+    boolean nextattfire = false;
+    boolean endturnplus = false;
+    boolean nextpow = false;
+    boolean diceagain = false;
+    boolean nexthurt = false;
+    boolean nextspe = false;
+    boolean nextatt1 = false;
+    boolean justatt = false;
+    boolean getsan = false;
+    boolean lessspihurt = false;
 
     TextView abVision;
     TextView coor,coor1;
@@ -317,10 +350,10 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     //背包的設定 by周辰陽
     int[] bag = {-1,-1,-1,-1,-1,-1};
     int[] item = new int [17];
-    int takenitem = 0;
+    int takenItem = 0;
 
     //現在按的按鈕 by周辰陽
-    private int clickitemnow = 0;
+    private int clickItemNow = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -361,11 +394,15 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 Plate[i][j].setTranslationY(dp *j +500); // 預設圖片
                 Plate[i][j].setLayoutParams(params);
                 Plate[i][j].setImageResource(R.drawable.catacomb_assassin_run);
+                Plate[i][j].setVisibility(View.GONE);
                 PlateLayout.addView(Plate[i][j]);
             }
         }
-        Plate[12][7].setImageResource(R.drawable.inner);
+        Plate[11][7].setVisibility(View.VISIBLE);
+        Plate[12][7].setVisibility(View.VISIBLE);
+        Plate[13][7].setVisibility(View.VISIBLE);
         Plate[11][7].setImageResource(R.drawable.kitchen);
+        Plate[12][7].setImageResource(R.drawable.inner);
         Plate[13][7].setImageResource(R.drawable.elfsong);
 
         //初始化地圖 by周辰陽
@@ -383,8 +420,8 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             catacombopen[a] = 0;
             streetopen[a] = 0;
         }
-        door[12][7] = "RGRG"; //R是紅色 G是開過了 B是藍色 Y是黃色 N是不能走的 U是還沒開過的
-        door[11][7] = "RGRB";
+        door[12][7] = "RGRG"; // R是紅色 G是開過了 B是藍色 Y是黃色 N是不能走的 U是還沒開過的
+        door[11][7] = "RGRY";
         door[13][7] = "YYYG";
         maproom[11][7] = 42;
         maproom[12][7] = 43;
@@ -475,12 +512,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     // X
                     if(maproom[(playerX[myClientID] + TransDP(x) + 7220) / 600][plateY] > -1){
                         if((playerX[myClientID] + TransDP(x) + 7220) / 600 != plateX && CanPass(plateX, plateY, ((playerX[myClientID] + TransDP(x) + 7220) / 600), plateY)) {
-                        // 移動玩家 (單純顯示)
-                        role[myClientID].setTranslationX(role[myClientID].getX() + x);
-                        // 移動玩家 (更新絕對座標)
-                        playerX[myClientID] += TransDP(x);
-                        // 算板塊 XY
-                        plateX = (playerX[myClientID] + 7220) / 600;
+                            // 移動玩家 (單純顯示)
+                            role[myClientID].setTranslationX(role[myClientID].getX() + x);
+                            // 移動玩家 (更新絕對座標)
+                            playerX[myClientID] += TransDP(x);
+                            // 算板塊 XY
+                            plateX = (playerX[myClientID] + 7220) / 600;
                         }
                         else if ((playerX[myClientID] + TransDP(x) + 7220) / 600 == plateX) {
                             // 移動玩家 (單純顯示)
@@ -495,12 +532,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     // Y
                     if(maproom[plateX][(playerY[myClientID] + TransDP(y) + 4500) / 600] > -1){
                         if((playerY[myClientID] + TransDP(y) + 4500) / 600 != plateY && CanPass(plateX, plateY, plateX, (playerY[myClientID] + TransDP(y) + 4500) / 600)){
-                        // 移動玩家 (單純顯示)
-                        role[myClientID].setTranslationY(role[myClientID].getY() + y);
-                        // 移動玩家 (更新絕對座標)
-                        playerY[myClientID] += TransDP(y);
-                        // 算板塊 XY
-                        plateY = (playerY[myClientID] + 4500) / 600;
+                            // 移動玩家 (單純顯示)
+                            role[myClientID].setTranslationY(role[myClientID].getY() + y);
+                            // 移動玩家 (更新絕對座標)
+                            playerY[myClientID] += TransDP(y);
+                            // 算板塊 XY
+                            plateY = (playerY[myClientID] + 4500) / 600;
                         }
                         else if((playerY[myClientID] + TransDP(y) + 4500) / 600 == plateY){
                             // 移動玩家 (單純顯示)
@@ -575,6 +612,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         msgToServer += character.chara[characterIndex[myClientID]].currentSanity;
         msgToServer += character.chara[characterIndex[myClientID]].currentKnowledge;
 
+        // 如果開啟板塊
         if(openplate){
             openplate = false;
             msgToServer += newPlateThings;
@@ -582,10 +620,34 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         else
             msgToServer += "000000000000000000000000000000";
 
+        // 如果攻擊
+        if(ifAttack){
+            msgToServer += idGettingHurt + hurtingType + hurthowmuch;
+            ifAttack = false;
+        }
+        else
+            msgToServer += "000";
+
+        // 如果抽到東西
+        msgToServer += String.format("%02d", ItemId);
+        if(ItemId != 99) ItemId = 99;
+        msgToServer += String.format("%02d", EventId);
+        if(EventId != 99) EventId = 99;
+        msgToServer += String.format("%02d", omancard);
+
+        // 故事腳本編號 (暫時直接+ 如果之後閃退可能是封包多一位)
+        msgToServer += script;
+
+        // 2 階段?
+        System.out.println(secondround);
+        if(secondround) msgToServer += "1";
+        else msgToServer += "0";
+
         // 送出自己座標的封包
         Sender sender = new Sender();
         new Thread(sender).start();
     }
+
     // 設定按鈕的點擊事件
     @SuppressLint("SetTextI18n")
     public void Config(View view) {
@@ -720,19 +782,17 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         final TextView itemName = v.findViewById(R.id.itemname);
         final TextView itemContext = v.findViewById(R.id.itemcontext);
         final TextView itemContext2 = v.findViewById(R.id.itemcontext2);
-        //final Button get = v.findViewById(R.id.get);
 
         // 宣告一個彈出視窗
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setView(v);
         // 顯示
-
         AlertDialog dialog = alert.create();
-        dialog.setView(v);
         dialog.show();
 
         //背包物品的按鈕 by周辰陽
         item1.setOnClickListener(v1 -> {
-            clickitemnow = 1;
+            clickItemNow = 1;
             if(bag[0] != -1)
             {
                 itemName.setText(AllItemName[bag[0]]);
@@ -747,7 +807,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             }
         });
         item2.setOnClickListener(v12 -> {
-            clickitemnow = 2;
+            clickItemNow = 2;
             if(bag[1] != -1)
             {
                 itemName.setText(AllItemName[bag[1]]);
@@ -762,7 +822,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             }
         });
         item3.setOnClickListener(v13 -> {
-            clickitemnow = 3;
+            clickItemNow = 3;
             if(bag[2] != -1)
             {
                 itemName.setText(AllItemName[bag[2]]);
@@ -777,7 +837,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             }
         });
         item4.setOnClickListener(v14 -> {
-            clickitemnow = 4;
+            clickItemNow = 4;
             if(bag[3] != -1)
             {
                 itemName.setText(AllItemName[bag[3]]);
@@ -792,7 +852,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             }
         });
         item5.setOnClickListener(v15 -> {
-            clickitemnow = 5;
+            clickItemNow = 5;
             if(bag[4] != -1)
             {
                 itemName.setText(AllItemName[bag[4]]);
@@ -807,7 +867,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             }
         });
         item6.setOnClickListener(v16 -> {
-            clickitemnow = 6;
+            clickItemNow = 6;
             if(bag[5] != -1)
             {
                 itemName.setText(AllItemName[bag[5]]);
@@ -821,38 +881,121 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 itemContext2.setText("沒有物品");
             }
         });
-//        get.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                while (true)
-//                {
-//                    if(takenitem == 17) //物品最多17樣 多了就不能拿了
-//                        break;
-//                    int GetItem = (int)(Math.random()*17);
-//                    if(item[GetItem] == 0)
-//                    {
-//                        for(int a = 0 ; a<6;a++)
-//                        {
-//                            if(bag[a] == -1)
-//                            {
-//                                bag[a] = GetItem;
-//                                takenitem++;
-//                                item[GetItem] = 1;
-//                                break;
-//                            }
-//                        }
-//                        break;
-//                    }
-//                }
-//            }
-//        });
-        ubun.setOnClickListener(v17 -> {
+        use.setOnClickListener(v17 -> {
+            switch (bag[clickItemNow -1])
+            {
+                case 0:
+                    defend3 = true;
+                    itemName.setText("沒有物品");
+                    itemContext.setText("沒有物品");
+                    itemContext2.setText("沒有物品");
+                    bag[clickItemNow -1] = -1;
+                    break;
+                case 1:
+
+                case 2:
+                    moredice2 = true;
+                    break;
+                case 3:
+                    lessphyhurt = true;
+                    break;
+                case 4:
+                    if(getknow == false)
+                    {
+                        getknow = true;
+                        GetHurt(6,1);
+                    }
+                    morespihurt = true;
+                    break;
+                case 5:
+                    nextattfire = true;
+                    itemName.setText("沒有物品");
+                    itemContext.setText("沒有物品");
+                    itemContext2.setText("沒有物品");
+                    bag[clickItemNow -1] = -1;
+                    break;
+                case 6:
+                    endturnplus = true;
+                    break;
+                case 7:
+                    nextpow = true;
+                    itemName.setText("沒有物品");
+                    itemContext.setText("沒有物品");
+                    itemContext2.setText("沒有物品");
+                    bag[clickItemNow -1] = -1;
+                    break;
+                case 8:
+                    diceagain = true;
+                    break;
+                case 9:
+                    nexthurt = true;
+                    itemName.setText("沒有物品");
+                    itemContext.setText("沒有物品");
+                    itemContext2.setText("沒有物品");
+                    bag[clickItemNow -1] = -1;
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    break;
+                case 12:
+                    if(character.chara[characterIndex[myClientID]].currentMight<character.chara[characterIndex[myClientID]].iniMight)
+                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].iniMight;
+                    if(character.chara[characterIndex[myClientID]].currentSpeed<character.chara[characterIndex[myClientID]].iniSpeed)
+                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].iniSpeed;
+                    itemName.setText("沒有物品");
+                    itemContext.setText("沒有物品");
+                    itemContext2.setText("沒有物品");
+                    bag[clickItemNow -1] = -1;
+                    break;
+                case 13:
+                    nextspe = true;
+                    itemName.setText("沒有物品");
+                    itemContext.setText("沒有物品");
+                    itemContext2.setText("沒有物品");
+                    bag[clickItemNow -1] = -1;
+                    break;
+                case 14:
+                    nextatt1 = true;
+                    break;
+                case 15:
+                    justatt = true;
+                    break;
+                case 16:
+                    if(getsan == false)
+                    {
+                        getsan = true;
+                        GetHurt(5,1);
+                    }
+                    lessspihurt = true;
+                    break;
+            }
+        });
+        ubun.setOnClickListener(v18 -> {
             itemName.setText("沒有物品");
             itemContext.setText("沒有物品");
             itemContext2.setText("沒有物品");
-            bag[clickitemnow-1] = -1;
+            bag[clickItemNow -1] = -1;
+            if(DrawItem)
+            {
+                while (true) {
+                    if (takenItem == 17) //物品最多17樣 多了就不能拿了
+                        break;
+                    int GetItem = (int) (Math.random() * 17);
+                    if (item[GetItem] == 0) {
+                        for (int a = 0; a < 6; a++) {
+                            if (bag[a] == -1) {
+                                bag[a] = GetItem;
+                                takenItem++;
+                                item[GetItem] = 1;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                DrawItem = false;
+            }
         });
     }
 
@@ -910,8 +1053,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
 
         //判定有沒有這顏色的門 by周辰陽
         for(int a= 0;a<4;a++) {
-            if(door[plateX][plateY].charAt(a)=='B')
-            {
+            if(door[plateX][plateY].charAt(a)=='B') {
                 blue.setEnabled(true);
             }
             else if(door[plateX][plateY].charAt(a) == 'R') {
@@ -1078,19 +1220,10 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             runOnUiThread(()->{
                 Plate[plateX][plateY - 1].setImageResource(allroom[getnum]);
                 Plate[plateX][plateY - 1].setRotation(degree[0]); // 剛剛新增用來選轉的
+                Plate[plateX][plateY - 1].setVisibility(View.VISIBLE);
             });
             door[plateX][plateY - 1] = allroomdoor[getnum];
             maproom[plateX][plateY-1] = getnum;
-
-            // 封包內容
-            openplate = true;
-            newPlateThings = "1";
-            newPlateThings += String.format("%02d", plateX);
-            newPlateThings += String.format("%02d", plateY-1);
-            newPlateThings += String.format("%02d", getnum);
-            newPlateThings += String.format("%03d", degree[0]);
-            newPlateThings += door[plateX][plateY-1] + door[plateX][plateY-2] + door[plateX][plateY] + door[plateX-1][plateY-1] + door[plateX+1][plateY-1];
-            packetMaker();
 
             //改變抽到的板塊變數
             StringBuilder MyString = new StringBuilder(door[plateX][plateY - 1]);
@@ -1186,7 +1319,18 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             sb = new StringBuffer(door[plateX][plateY]);
             door[plateX][plateY]  = String.valueOf(sb.insert(0, 'G'));
 
-            happend(getnum);
+            happen(getnum);
+
+            // 封包內容
+            openplate = true;
+            newPlateThings = "1";
+            newPlateThings += String.format("%02d", plateX);
+            newPlateThings += String.format("%02d", plateY-1);
+            newPlateThings += String.format("%02d", getnum);
+            newPlateThings += String.format("%03d", degree[0]);
+            newPlateThings += door[plateX][plateY-1] + door[plateX][plateY-2] + door[plateX][plateY] + door[plateX-1][plateY-1] + door[plateX+1][plateY-1];
+
+            packetMaker();
             times = 0;
             dialog.dismiss();
         });
@@ -1195,19 +1339,10 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             runOnUiThread(()->{
                 Plate[plateX][plateY+1].setImageResource(allroom[getnum]);
                 Plate[plateX][plateY+1].setRotation(degree[0]);
+                Plate[plateX][plateY+1].setVisibility(View.VISIBLE);
             });
             door[plateX][plateY + 1] = allroomdoor[getnum];
             maproom[plateX][plateY+1] = getnum;
-
-            // 封包內容
-            openplate = true;
-            newPlateThings = "1";
-            newPlateThings += String.format("%02d", plateX);
-            newPlateThings += String.format("%02d", plateY+1);
-            newPlateThings += String.format("%02d", getnum);
-            newPlateThings += String.format("%03d", degree[0]);
-            newPlateThings += door[plateX][plateY+1] + door[plateX][plateY] + door[plateX][plateY+2] + door[plateX-1][plateY+1] + door[plateX+1][plateY+1];
-            packetMaker();
 
             //改變抽到的板塊變數
             StringBuilder MyString = new StringBuilder(door[plateX][plateY+1]);
@@ -1303,7 +1438,18 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             sb = new StringBuffer(door[plateX][plateY]);
             door[plateX][plateY]  = String.valueOf(sb.insert(2, 'G'));
 
-            happend(getnum);
+            happen(getnum);
+
+            // 封包內容
+            openplate = true;
+            newPlateThings = "1";
+            newPlateThings += String.format("%02d", plateX);
+            newPlateThings += String.format("%02d", plateY+1);
+            newPlateThings += String.format("%02d", getnum);
+            newPlateThings += String.format("%03d", degree[0]);
+            newPlateThings += door[plateX][plateY+1] + door[plateX][plateY] + door[plateX][plateY+2] + door[plateX-1][plateY+1] + door[plateX+1][plateY+1];
+
+            packetMaker();
             times = 0;
             dialog.dismiss();
         });
@@ -1312,19 +1458,10 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             runOnUiThread(()->{
                 Plate[plateX-1][plateY].setImageResource(allroom[getnum]);
                 Plate[plateX-1][plateY].setRotation(degree[0]);
+                Plate[plateX-1][plateY].setVisibility(View.VISIBLE);
             });
             door[plateX-1][plateY] = allroomdoor[getnum];
             maproom[plateX-1][plateY] = getnum;
-
-            // 封包內容
-            openplate = true;
-            newPlateThings = "1";
-            newPlateThings += String.format("%02d", plateX-1);
-            newPlateThings += String.format("%02d", plateY);
-            newPlateThings += String.format("%02d", getnum);
-            newPlateThings += String.format("%03d", degree[0]);
-            newPlateThings += door[plateX-1][plateY] + door[plateX-1][plateY-1] + door[plateX-1][plateY+1] + door[plateX-2][plateY] + door[plateX][plateY];
-            packetMaker();
 
             //改變抽到的板塊變數
             StringBuilder MyString = new StringBuilder(door[plateX-1][plateY]);
@@ -1420,7 +1557,18 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             sb = new StringBuffer(door[plateX][plateY]);
             door[plateX][plateY]  = String.valueOf(sb.insert(3, 'G'));
 
-            happend(getnum);
+            happen(getnum);
+
+            // 封包內容
+            openplate = true;
+            newPlateThings = "1";
+            newPlateThings += String.format("%02d", plateX-1);
+            newPlateThings += String.format("%02d", plateY);
+            newPlateThings += String.format("%02d", getnum);
+            newPlateThings += String.format("%03d", degree[0]);
+            newPlateThings += door[plateX-1][plateY] + door[plateX-1][plateY-1] + door[plateX-1][plateY+1] + door[plateX-2][plateY] + door[plateX][plateY];
+
+            packetMaker();
             times = 0;
             dialog.dismiss();
         });
@@ -1429,20 +1577,11 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             runOnUiThread(()->{
                 Plate[plateX+1][plateY].setImageResource(allroom[getnum]);
                 Plate[plateX+1][plateY].setRotation(degree[0]);
+                Plate[plateX+1][plateY].setVisibility(View.VISIBLE);
             });
 
             door[plateX+1][plateY] = allroomdoor[getnum];
             maproom[plateX+1][plateY] = getnum;
-
-            // 封包內容
-            openplate = true;
-            newPlateThings = "1";
-            newPlateThings += String.format("%02d", plateX+1);
-            newPlateThings += String.format("%02d", plateY);
-            newPlateThings += String.format("%02d", getnum);
-            newPlateThings += String.format("%03d", degree[0]);
-            newPlateThings += door[plateX+1][plateY] + door[plateX+1][plateY-1] + door[plateX+1][plateY+1] + door[plateX][plateY] + door[plateX+2][plateY];
-            packetMaker();
 
             //改變抽到的板塊變數
             StringBuilder MyString = new StringBuilder(door[plateX+1][plateY]);
@@ -1538,7 +1677,18 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             sb = new StringBuffer(door[plateX][plateY]);
             door[plateX][plateY]  = String.valueOf(sb.insert(1, 'G'));
 
-            happend(getnum);
+            happen(getnum);
+
+            // 封包內容
+            openplate = true;
+            newPlateThings = "1";
+            newPlateThings += String.format("%02d", plateX+1);
+            newPlateThings += String.format("%02d", plateY);
+            newPlateThings += String.format("%02d", getnum);
+            newPlateThings += String.format("%03d", degree[0]);
+            newPlateThings += door[plateX+1][plateY] + door[plateX+1][plateY-1] + door[plateX+1][plateY+1] + door[plateX][plateY] + door[plateX+2][plateY];
+
+            packetMaker();
             times = 0;
             dialog.dismiss();
         });
@@ -1568,7 +1718,6 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                             case 3:
                                 left.setEnabled(true);
                                 break;
-
                         }
                     }
                 }
@@ -1631,74 +1780,204 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
     }
 
     //判斷該板塊有沒有事情發生 by周辰陽
-    public void happend(int getnum) {
-        switch(getnum) {
+    public void happen(int getNum) {
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View v = inflater.inflate(R.layout.event, null);
+        // 宣告一個彈出視窗
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setView(v);
+        // 顯示
+        AlertDialog dialog = alert.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        // objects in XML
+        ImageView card_type = v.findViewById(R.id.card_type);
+        TextView Title = v.findViewById(R.id.title);
+        TextView body = v.findViewById(R.id.body);
+        TextView body2 = v.findViewById(R.id.body2);
+        Button close = v.findViewById(R.id.close);
+
+        // 關掉的按鈕
+        close.setOnClickListener(v1 -> dialog.dismiss());
+
+        switch(getNum) {
             //帶有事件的房間
-            case 0: case 2: case 4: case 5:case 6:case 8:case 10:case 15: case 17: case 20:case 28:case 31:case 34:case 38:case 39:case 40: case 41:
-            LayoutInflater inflater = LayoutInflater.from(context);
-            View v = inflater.inflate(R.layout.event, null);
-            // 宣告一個彈出視窗
-            AlertDialog.Builder alert = new AlertDialog.Builder(context);
-            alert.setView(v);
-            // 顯示
-            AlertDialog dialog = alert.create();
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.setCancelable(false);
-            // objects in XML
-            ImageView card_type = v.findViewById(R.id.card_type);
-            TextView Title = v.findViewById(R.id.title);
-            TextView body = v.findViewById(R.id.body);
-            TextView body2 = v.findViewById(R.id.body2);
-            Button close = v.findViewById(R.id.close);
-
-            //關掉的按鈕
-            close.setOnClickListener(v1 -> dialog.dismiss());
-
-            //幾號事件並呼叫 by周辰陽
-            int num;
-            while(true)
-            {
-                num = (int)(Math.random()*35);
-                if(event[num]==0)
-                {
-                    event[num] = 1;
-                    break;
-                }
-            }
-            int finalNum = num;
-            runOnUiThread(()->{
-                Title.setText(eventname[finalNum]);
-                body.setText(eventword[finalNum]);
-            });
-            Event(num,body2);
-            reset();
-            dialog.show();
-            break;
-            //帶有物品的房間
-            case 7: case 9: case 11: case 12: case 25: case 26: case 27: case 36:
-            while (true) {
-                if(takenitem == 17) //物品最多17樣 多了就不能拿了
-                    break;
-                int GetItem = (int)(Math.random()*17);
-                if(item[GetItem] == 0)
-                {
-                    for(int a = 0 ; a<6;a++)
-                    {
-                        if(bag[a] == -1)
-                        {
-                            bag[a] = GetItem;
-                            takenitem++;
-                            item[GetItem] = 1;
-                            break;
-                        }
+            case 0:
+            case 2:
+            case 4:
+            case 5:
+            case 6:
+            case 8:
+            case 10:
+            case 15:
+            case 17:
+            case 20:
+            case 28:
+            case 31:
+            case 34:
+            case 38:
+            case 39:
+            case 40:
+            case 41: {
+                // 幾號事件並呼叫 by周辰陽
+                EventId = 99;
+                while (true) {
+                    runOnUiThread(() -> card_type.setImageResource(R.drawable.card_event));
+                    EventId = (int) (Math.random() * 35);
+                    if (event[EventId] == 0) {
+                        event[EventId] = 1;
+                        break;
                     }
-                    break;
                 }
+                int finalNum = EventId;
+                runOnUiThread(() -> {
+                    Title.setText(eventname[finalNum]);
+                    body.setText(eventword[finalNum]);
+                });
+                Event(EventId, body2);
+                reset();
+                dialog.show();
+                break;
             }
-            break;
+            //帶有物品的房間
+            case 7:
+            case 9:
+            case 11:
+            case 12:
+            case 25:
+            case 26:
+            case 27:
+            case 36: {
+                while (true) {
+                    runOnUiThread(() -> card_type.setImageResource(R.drawable.card_item));
+                    if (takenItem == 17) //物品最多17樣 多了就不能拿了
+                        break;
+                    ItemId = (int) (Math.random() * 17);
+                    if (item[ItemId] == 0) {
+                        for (int a = 0; a < 6; a++) {
+                            if (bag[a] == -1) {
+                                bag[a] = ItemId;
+                                takenItem++;
+                                item[ItemId] = 1;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                int finalNum = ItemId;
+                runOnUiThread(() -> {
+                    Title.setText(AllItemName[finalNum]);
+                    body.setText(itemword[finalNum]);
+                    body2.setText(itemword2[finalNum]);
+                });
+                Event(EventId, body2);
+                reset();
+                dialog.show();
+                break;
+            }
+            // 作祟判定的房間
+            case 1:
+                omancard++;
+                runOnUiThread(()-> card_type.setImageResource(R.drawable.card_omen));
+                if (dice(omancard) >= 6) {
+                    if ((int) (Math.random() * 2) == 0)
+                        script = 2;
+                    else
+                        script = 5;
+                    secondround = true;
+                }
+                break;
+            case 3:
+                omancard++;
+                if (dice(omancard) >= 6) {
+                    script = 4;
+                }
+                break;
+            case 14:
+            case 21:
+                omancard++;
+                if (dice(omancard) >= 6) {
+                    if ((int) (Math.random() * 2) == 0)
+                        script = 1;
+                    else
+                        script = 2;
+                    secondround = true;
+                }
+                break;
+            case 18:
+                omancard++;
+                if (dice(omancard) >= 6) {
+                    if ((int) (Math.random() * 2) == 0)
+                        script = 3;
+                    else
+                        script = 1;
+                    secondround = true;
+                }
+                break;
+            case 19:
+            case 23:
+            case 30:
+                omancard++;
+                if (dice(omancard) >= 6) {
+                    if ((int) (Math.random() * 2) == 0)
+                        script = 3;
+                    else
+                        script = 4;
+                    secondround = true;
+                }
+                break;
+            case 22:
+                omancard++;
+                if (dice(omancard) >= 6) {
+                    if ((int) (Math.random() * 2) == 0)
+                        script = 3;
+                    else
+                        script = 5;
+                    secondround = true;
+                }
+                break;
+            case 24:
+                omancard++;
+                if (dice(omancard) >= 6) {
+                    script = 5;
+                }
+                break;
+            case 32:
+                omancard++;
+                if (dice(omancard) >= 6) {
+                    if ((int) (Math.random() * 2) == 0)
+                        script = 1;
+                    else
+                        script = 2;
+                    secondround = true;
+                }
+                break;
+            case 35:
+                omancard++;
+                if (dice(omancard) >= 6) {
+                    if ((int) (Math.random() * 2) == 0)
+                        script = 2;
+                    else
+                        script = 3;
+                    secondround = true;
+                }
+                break;
+            case 37:
+                omancard++;
+                if (dice(omancard) >= 6) {
+                    if ((int) (Math.random() * 2) == 0)
+                        script = 1;
+                    else
+                        script = 4;
+                    secondround = true;
+                }
+                break;
         }
     }
 
+    //攻擊按鈕
     public void attackBtn(View view) {
         // 宣告inflater並找到XML
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -1710,13 +1989,20 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         imageViews[1] = v.findViewById(R.id.attackedRole2);
         imageViews[2] = v.findViewById(R.id.attackedRole3);
         imageViews[3] = v.findViewById(R.id.attackedRole4);
+        howmany = 0;
         runOnUiThread(()->{
-            for (int i = 1, j = 0; i <= numberOfPlayer; i++, j++) { // i 迭代, j 代表屬性欄編號
-                if (i != myClientID) {
-                    imageViews[j].setImageResource(guys[characterIndex[i]]);
+            for(int a = 1;a<numberOfPlayer+1;a++) {
+                if((((playerX[a] + 7220) / 600 ) == plateX && a != myClientID) && ((playerY[a] + 4500) / 600== plateY)) {
+                    imageViews[0].setImageResource(guys[characterIndex[a]]);
+                    who[howmany] = a;
+                    howmany++;
                 }
             }
         });
+        for(int a = 0;a < 4;a++)
+            imageViews[a].setEnabled(false);
+        for(int a = 0;a < howmany; a++)
+            imageViews[a].setEnabled(true);
 
         // 宣告一個彈出視窗
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -1725,6 +2011,31 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         // 顯示
         AlertDialog dialog = alert.create();
         dialog.show();
+
+        imageViews[0].setOnClickListener(v1 -> {
+            attack(who[0]);
+            ifAttack = true;
+            idGettingHurt = who[0];
+            dialog.dismiss();
+        });
+        imageViews[1].setOnClickListener(v2 -> {
+            attack(who[1]);
+            ifAttack = true;
+            idGettingHurt = who[1];
+            dialog.dismiss();
+        });
+        imageViews[2].setOnClickListener(v3 -> {
+            attack(who[2]);
+            ifAttack = true;
+            idGettingHurt = who[2];
+            dialog.dismiss();
+        });
+        imageViews[3].setOnClickListener(v4 -> {
+            attack(who[3]);
+            ifAttack = true;
+            idGettingHurt = who[3];
+            dialog.dismiss();
+        });
     }
 
     // 送出訊息的執行緒
@@ -1758,20 +2069,21 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
 
                     switch (msgFromServer.charAt(0)){
                         // 0 開頭
-                        case '0':
+                        case '0': {
                             // 第 1 格代表人數
                             numberOfPlayer = msgFromServer.charAt(1) - 48;
                             // 第 2~6 格代表抽出的角色序號
-                            for(int i=1;i<6;i++)
-                                characterIndex[i] = msgFromServer.charAt(i+1) - 48;
+                            for (int i = 1; i < 6; i++)
+                                characterIndex[i] = msgFromServer.charAt(i + 1) - 48;
                             // 第 3 格代表該client的ID
-                            if(myClientID == 0)
+                            if (myClientID == 0)
                                 myClientID = msgFromServer.charAt(7) - 48;
                             // 顯示玩家人數
                             runOnUiThread(() ->
                                     population.setText("玩家人數 : " + numberOfPlayer));
                             break;
-                        case '1':
+                        }
+                        case '1': {
                             // 第 1 格代表誰的回合
                             if (msgFromServer.charAt(1) - '0' == myClientID) {
                                 roundOver = 0;
@@ -1781,9 +2093,9 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                                 runOnUiThread(() -> RoundOver.setVisibility(View.GONE));
                             }
                             // 角色 1~5 的座標
-                            int from=2, to=7;
-                            for(int i=1;i<6;i++){
-                                if(i != myClientID && !myRound) {
+                            int from = 2, to = 7;
+                            for (int i = 1; i < 6; i++) {
+                                if (i != myClientID && !myRound) {
                                     playerX[i] = Integer.parseInt(msgFromServer.substring(from, to));
                                     playerY[i] = Integer.parseInt(msgFromServer.substring(from + 5, to + 5));
                                     role[i].setTranslationX(role[myClientID].getX() + TransPX(playerX[i] - playerX[myClientID]));
@@ -1793,10 +2105,11 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                                 to += 10;
                             }
                             break;
-                        case '2':
+                        }
+                        case '2': {
                             // 1 ~ 5
-                            for(int i=1;i<numberOfPlayer+1;i++){
-                                if(msgFromServer.charAt(i) == '0'){
+                            for (int i = 1; i < numberOfPlayer + 1; i++) {
+                                if (msgFromServer.charAt(i) == '0') {
                                     alive[i] = false;
                                 }
                             }
@@ -1812,27 +2125,47 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                                         msgFromServer.charAt(4 * i + 5) - '0';
                             }
                             break;
-                        case '3':
-                            System.out.println(myRound);
-                            if(!myRound && msgFromServer.charAt(1) == '1'){
-                                int x = Integer.parseInt(msgFromServer.substring(2,4));
-                                int y = Integer.parseInt(msgFromServer.substring(4,6));
-                                int id = Integer.parseInt(msgFromServer.substring(6,8));
-                                int deg = Integer.parseInt(msgFromServer.substring(8,11));
+                        }
+                        case '3': {
+                            if (!myRound && msgFromServer.charAt(1) == '1') {
+                                int x = Integer.parseInt(msgFromServer.substring(2, 4));
+                                int y = Integer.parseInt(msgFromServer.substring(4, 6));
+                                int id = Integer.parseInt(msgFromServer.substring(6, 8));
+                                int deg = Integer.parseInt(msgFromServer.substring(8, 11));
                                 System.out.println(x + " " + y + " " + deg);
                                 maproom[x][y] = id;
-                                runOnUiThread(()->{
+                                runOnUiThread(() -> {
+                                    Plate[x][y].setVisibility(View.VISIBLE);
                                     Plate[x][y].setImageResource(allroom[id]);
                                     Plate[x][y].setRotation(deg);
                                 });
-                                door[x][y] = msgFromServer.substring(11,15);
-                                door[x][y-1] = msgFromServer.substring(15,19);
-                                door[x][y+1] = msgFromServer.substring(19,23);
-                                door[x-1][y] = msgFromServer.substring(23,27);
-                                door[x+1][y] = msgFromServer.substring(27,31);
-                                if(id < 13) buildingopen[id] = 1;
-                                else if (id < 28) catacombopen[id-13] = 1;
-                                else streetopen[id-28] = 1;
+                                door[x][y] = msgFromServer.substring(11, 15);
+                                door[x][y - 1] = msgFromServer.substring(15, 19);
+                                door[x][y + 1] = msgFromServer.substring(19, 23);
+                                door[x - 1][y] = msgFromServer.substring(23, 27);
+                                door[x + 1][y] = msgFromServer.substring(27, 31);
+                                if (id < 13) buildingopen[id] = 1;
+                                else if (id < 28) catacombopen[id - 13] = 1;
+                                else streetopen[id - 28] = 1;
+
+                                // 抽到的東西編號 *避免99超出範圍
+                                if (Integer.parseInt(msgFromServer.substring(31, 33)) < 17)
+                                    //happen(Integer.parseInt(msgFromServer.substring(31, 33)));
+                                    item[Integer.parseInt(msgFromServer.substring(31, 33))] = 1;
+
+                                if (Integer.parseInt(msgFromServer.substring(33, 35)) < 35)
+                                    //happen(Integer.parseInt(msgFromServer.substring(33, 35)));
+                                    event[Integer.parseInt(msgFromServer.substring(33, 35))] = 1;
+
+                                omancard = Integer.parseInt(msgFromServer.substring(35, 37));
+                                script = Integer.parseInt(msgFromServer.substring(37, 38));
+                                if (msgFromServer.charAt(38) == '1') secondround = true;
+                            }
+                            break;
+                        }
+                        case '4':
+                            if(msgFromServer.charAt(1) - '0' == myClientID){
+                                GetHurt(Integer.parseInt(msgFromServer.substring(2,3)), Integer.parseInt(msgFromServer.substring(3,4)));
                             }
                             break;
                     }
@@ -1841,7 +2174,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         }
     }
 
-    //把畫面全螢幕 by周辰陽
+    // 把畫面全螢幕 by周辰陽
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     protected void onResume() {
         super.onResume();
@@ -1854,17 +2187,18 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
-    //發生的事件判定與文本
+    // 發生的事件判定與文本
     public void Event(int num,TextView context2) {
         int GoDice = 0;
         int choose = 0;
-        switch(num) {
+        switch(num)
+        {
             case 0:
                 GoDice = dice(character.chara[characterIndex[myClientID]].Knowledge[character.chara[characterIndex[myClientID]].currentKnowledge]);
                 if(GoDice>=4)
                 {
                     context2.setText("你仔細一看，原來這是嘉年華季！取得 1 級知識。");
-                    character.chara[characterIndex[myClientID]].currentKnowledge++;
+                    GetHurt(6,1);
                 }
                 else if(GoDice>=2)
                 {
@@ -1873,10 +2207,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else
                 {
                     context2.setText("你仔細一看，你最後記得的事是有一個雕像開始移 動了，受到 1 級精神傷害");
-                    if(character.chara[characterIndex[myClientID]].currentKnowledge>character.chara[characterIndex[myClientID]].currentSanity)
-                        character.chara[characterIndex[myClientID]].currentKnowledge--;
-                    else
-                        character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(1,-1);
                 }
                 break;
             case 1:
@@ -1884,19 +2215,19 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice >= 5)
                 {
                     context2.setText("只是星體的投射影像而已取得 1 級 心智及 1 級知識。");
-                    character.chara[characterIndex[myClientID]].currentSanity++;
-                    character.chara[characterIndex[myClientID]].currentKnowledge++;
+                    GetHurt(5,1);
+                    GetHurt(6,1);
                 }
                 else if(GoDice >= 2)
                 {
                     context2.setText("這觸手並不是真的，但它震懾到你的心靈，失去 1 級心智");
-                    character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(5,-1);
                 }
                 else
                 {
                     context2.setText("觸手刺穿了你的心靈及身體，失去 1 級力量及 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentMight--;
-                    character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(3,-1);
+                    GetHurt(5,-1);
                 }
                 break;
             case 2:
@@ -1935,36 +2266,52 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else
                 {
                     context2.setText("他拿走了你一部份的心靈，失去 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(5,-1);
                 }
                 break;
             case 3:
-                GoDice = dice(
-                        character.chara[characterIndex[myClientID]].Sanity[character.chara[characterIndex[myClientID]].currentSanity]);
+                GoDice = dice(character.chara[characterIndex[myClientID]].Sanity[character.chara[characterIndex[myClientID]].currentSanity]);
                 if(GoDice>=4)
                 {
                     context2.setText("你戰勝了鼠群並掠奪了牠們的心靈，取得 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity++;
+                    GetHurt(5,1);
                 }
                 else if(GoDice>=2)
                 {
                     context2.setText("牠們找到了牠們要找的東西，失去 1 級知識。");
-                    character.chara[characterIndex[myClientID]].currentKnowledge--;
+                    GetHurt(6,-1);
                 }
                 else
                 {
                     context2.setText(" 你對這突襲毫無準備，受到 1 顆骰的精神傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentKnowledge>character.chara[characterIndex[myClientID]].currentSanity)
-                        character.chara[characterIndex[myClientID]].currentKnowledge = character.chara[characterIndex[myClientID]].currentKnowledge - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentSanity = character.chara[characterIndex[myClientID]].currentSanity - dice(1);
+                    GetHurt(1,-dice(1));
                 }
                 break;
             case 4:
                 GoDice = dice(character.chara[characterIndex[myClientID]].Knowledge[character.chara[characterIndex[myClientID]].currentKnowledge]);
                 if(GoDice >= 5)
                 {
-                    context2.setText("有關物品的還沒做好");
+                    context2.setText("依照了紙上的指示獲得了一件物品");
+                    while (true)
+                    {
+                        if(takenItem == 17) //物品最多17樣 多了就不能拿了
+                            break;
+                        int GetItem = (int)(Math.random()*17);
+                        if(item[GetItem] == 0)
+                        {
+                            for(int a = 0 ; a<6;a++)
+                            {
+                                if(bag[a] == -1)
+                                {
+                                    bag[a] = GetItem;
+                                    takenItem++;
+                                    item[GetItem] = 1;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
                 }
                 else if(GoDice >= 3)
                 {
@@ -1973,10 +2320,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else
                 {
                     context2.setText("你無視這些不重要的文字，結果它在半空中爆炸，受到 1 顆骰的物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight - dice(1);
+                    GetHurt(0,-dice(1));
                 }
                 break;
             case 5:
@@ -2013,16 +2357,16 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     switch (choose)
                     {
                         case 1 :
-                            character.chara[characterIndex[myClientID]].currentSpeed++;
+                            GetHurt(4,1);
                             break;
                         case 2 :
-                            character.chara[characterIndex[myClientID]].currentMight++;
+                            GetHurt(3,1);
                             break;
                         case 3 :
-                            character.chara[characterIndex[myClientID]].currentSanity++;
+                            GetHurt(5,1);
                             break;
                         case 4 :
-                            character.chara[characterIndex[myClientID]].currentKnowledge++;
+                            GetHurt(6,1);
                             break;
                     }
                 }
@@ -2032,16 +2376,16 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     switch (choose)
                     {
                         case 1 :
-                            character.chara[characterIndex[myClientID]].currentSpeed--;
+                            GetHurt(4,-1);
                             break;
                         case 2 :
-                            character.chara[characterIndex[myClientID]].currentMight--;
+                            GetHurt(3,-1);
                             break;
                         case 3 :
-                            character.chara[characterIndex[myClientID]].currentSanity--;
+                            GetHurt(5,-1);
                             break;
                         case 4 :
-                            character.chara[characterIndex[myClientID]].currentKnowledge--;
+                            GetHurt(6,-1);
                             break;
                     }
                 }
@@ -2069,7 +2413,27 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 GoDice = dice(2);
                 if(GoDice>=4)
                 {
-                    context2.setText("有關物品的還沒做好");
+                    context2.setText("有珍寶回報！獲得一件物品");
+                    while (true)
+                    {
+                        if(takenItem == 17) //物品最多17樣 多了就不能拿了
+                            break;
+                        int GetItem = (int)(Math.random()*17);
+                        if(item[GetItem] == 0)
+                        {
+                            for(int a = 0 ; a<6;a++)
+                            {
+                                if(bag[a] == -1)
+                                {
+                                    bag[a] = GetItem;
+                                    takenItem++;
+                                    item[GetItem] = 1;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
                 }
                 else if(GoDice>= 2)
                 {
@@ -2078,10 +2442,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else
                 {
                     context2.setText("這寶箱是一個寶箱怪！而且它試著 扯下你的手臂！受到 1 顆骰的物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight - dice(1);
+                    GetHurt(0,-dice(1));
                 }
                 break;
             case 7:
@@ -2089,15 +2450,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice>=4)
                 {
                     context2.setText("這是吸血鬼迷霧，快跑！取得 1 級速度。");
-                    character.chara[characterIndex[myClientID]].currentSpeed++;
+                    GetHurt(4,1);
                 }
                 else
                 {
                     context2.setText("它應該只會殺掉老鼠吧，你一邊這麼 說一邊走了進去，受到 1 級物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed--;
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight--;
+                    GetHurt(0,-1);
                 }
                 break;
             case 8:
@@ -2115,25 +2473,19 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 {
                     context2.setText("你戰勝恐慌，取得 1 級檢定屬性。");
                     if(choose == 1)
-                        character.chara[characterIndex[myClientID]].currentSpeed++;
+                        GetHurt(4,1);
                     else if(choose == 2)
-                        character.chara[characterIndex[myClientID]].currentSanity++;
+                        GetHurt(5,1);
                 }
                 else if(GoDice>=3)
                 {
                     context2.setText("你因恐慌而大聲尖叫，受到 1 顆骰的精神傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentKnowledge>character.chara[characterIndex[myClientID]].currentSanity)
-                        character.chara[characterIndex[myClientID]].currentKnowledge = character.chara[characterIndex[myClientID]].currentKnowledge - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentSanity = character.chara[characterIndex[myClientID]].currentSanity - dice(1);
+                    GetHurt(1,-dice(1));
                 }
                 else
                 {
                     context2.setText("你會感到恐慌是非常合理的，當你拿著匕首想把腐蛆挖出來時，你受到 1 顆骰的物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight - dice(1);
+                    GetHurt(0,-dice(1));
                 }
                 break;
             case 9:
@@ -2141,23 +2493,17 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice>=4)
                 {
                     context2.setText("你讓這陣風成為你的優勢，取得 1 級速度。");
-                    character.chara[characterIndex[myClientID]].currentSpeed++;
+                    GetHurt(4,1);
                 }
                 else if(GoDice>=2)
                 {
                     context2.setText("這個元素連續打擊著你，受到 1 級物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentMight>character.chara[characterIndex[myClientID]].currentSpeed)
-                        character.chara[characterIndex[myClientID]].currentMight--;
-                    else
-                        character.chara[characterIndex[myClientID]].currentSpeed--;
+                    GetHurt(0,-1);
                 }
                 else if(GoDice>= 0)
                 {
                     context2.setText("你被吸進了元素裡，受到 1 顆骰的物理傷害，你下回合只能走 1 步。");
-                    if(character.chara[characterIndex[myClientID]].currentMight>character.chara[characterIndex[myClientID]].currentSpeed)
-                        character.chara[characterIndex[myClientID]].currentMight--;
-                    else
-                        character.chara[characterIndex[myClientID]].currentSpeed--;
+                    GetHurt(0,-dice(1));
                     NextRoundMove = 1;
                 }
                 break;
@@ -2167,16 +2513,33 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 break;
             case 11:
                 context2.setText("受到 1 級物理傷害。");
-                if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                    character.chara[characterIndex[myClientID]].currentSpeed--;
-                else
-                    character.chara[characterIndex[myClientID]].currentMight--;
+                GetHurt(0,-1);
                 break;
             case 12:
                 GoDice = dice(1);
                 if(GoDice>=2)
                 {
-                    context2.setText("有關物品的還沒做好");
+                    context2.setText("取得一件物品。");
+                    while (true)
+                    {
+                        if(takenItem == 17) //物品最多17樣 多了就不能拿了
+                            break;
+                        int GetItem = (int)(Math.random()*17);
+                        if(item[GetItem] == 0)
+                        {
+                            for(int a = 0 ; a<6;a++)
+                            {
+                                if(bag[a] == -1)
+                                {
+                                    bag[a] = GetItem;
+                                    takenItem++;
+                                    item[GetItem] = 1;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
                 }
                 else if(GoDice>=1)
                 {
@@ -2185,7 +2548,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else
                 {
                     context2.setText("你打破了一個壺，壺的擁有者手上拿著武器，打算好好的回報你，失去 1 級力量。");
-                    character.chara[characterIndex[myClientID]].currentMight--;
+                    GetHurt(3,-1);
                 }
                 break;
             case 13:
@@ -2193,12 +2556,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice>=3)
                 {
                     context2.setText("你已經看過這多元宇宙中最糟糕的 一面，眼睛都沒眨一下。取得 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity++;
+                    GetHurt(5,1);
                 }
                 else
                 {
                     context2.setText("鴉閣城的景象讓你感到恐懼，失去 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(5,-1);
                 }
                 break;
             case 14:
@@ -2206,27 +2569,64 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice>=5)
                 {
                     context2.setText("你辨認出矮人的部落，並告訴鬼魂要 如何回家。取得 1 級知識。");
-                    character.chara[characterIndex[myClientID]].currentKnowledge++;
+                    GetHurt(6,1);
                 }
                 else if(GoDice>=1)
                 {
                     context2.setText("你無法幫助這位悲傷的幽靈，失去 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(5,-1);
                 }
                 else
                 {
                     context2.setText("幽靈附身在你身上，並盲目的驚慌奔走，受到 1 顆骰的精神傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentKnowledge>character.chara[characterIndex[myClientID]].currentSanity)
-                        character.chara[characterIndex[myClientID]].currentKnowledge = character.chara[characterIndex[myClientID]].currentKnowledge - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentSanity = character.chara[characterIndex[myClientID]].currentSanity - dice(1);
+                    GetHurt(1,-dice(1));
                 }
                 break;
             case 15:
                 GoDice = dice(character.chara[characterIndex[myClientID]].Knowledge[character.chara[characterIndex[myClientID]].currentKnowledge]);
                 if(GoDice>=6)
                 {
-                    context2.setText("有關物品的還沒做好");
+                    context2.setText("取得兩件物品");
+                    while (true)
+                    {
+                        if(takenItem == 17) //物品最多17樣 多了就不能拿了
+                            break;
+                        int GetItem = (int)(Math.random()*17);
+                        if(item[GetItem] == 0)
+                        {
+                            for(int a = 0 ; a<6;a++)
+                            {
+                                if(bag[a] == -1)
+                                {
+                                    bag[a] = GetItem;
+                                    takenItem++;
+                                    item[GetItem] = 1;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    while (true)
+                    {
+                        if(takenItem == 17) //物品最多17樣 多了就不能拿了
+                            break;
+                        int GetItem = (int)(Math.random()*17);
+                        if(item[GetItem] == 0)
+                        {
+                            for(int a = 0 ; a<6;a++)
+                            {
+                                if(bag[a] == -1)
+                                {
+                                    bag[a] = GetItem;
+                                    takenItem++;
+                                    item[GetItem] = 1;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
                 }
                 else
                 {
@@ -2237,43 +2637,74 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 GoDice = dice(character.chara[characterIndex[myClientID]].Knowledge[character.chara[characterIndex[myClientID]].currentKnowledge]);
                 if(GoDice>=4)
                 {
-                    context2.setText("有關物品的還沒做好");
+                    context2.setText("你發現了一個隱藏寶箱！獲得一件物品。");
+                    while (true)
+                    {
+                        if(takenItem == 17) //物品最多17樣 多了就不能拿了
+                            break;
+                        int GetItem = (int)(Math.random()*17);
+                        if(item[GetItem] == 0)
+                        {
+                            for(int a = 0 ; a<6;a++)
+                            {
+                                if(bag[a] == -1)
+                                {
+                                    bag[a] = GetItem;
+                                    takenItem++;
+                                    item[GetItem] = 1;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
                 }
                 else if(GoDice>=2)
                 {
                     context2.setText("你發現了一個空洞，裡面充滿了蜘蛛並聚集到你的手臂上，失去 1 級力量。");
-                    character.chara[characterIndex[myClientID]].currentMight--;
+                    GetHurt(3,-1);
                 }
                 else
                 {
                     context2.setText("你發現了一個狗頭人的洞穴，受到 1 顆骰的物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight - dice(1);
+                    GetHurt(0,-dice(1));
                 }
                 break;
             case 17:
                 GoDice = dice(character.chara[characterIndex[myClientID]].Might[character.chara[characterIndex[myClientID]].currentMight]);
                 if(GoDice>=4)
                 {
-                    context2.setText("你掙脫開，並奮力一擊殺了設陷者，抽１張物品牌。");
+                    context2.setText("你掙脫開，並奮力一擊殺了設陷者，獲得一件物品。");
+                    while (true)
+                    {
+                        if(takenItem == 17) //物品最多17樣 多了就不能拿了
+                            break;
+                        int GetItem = (int)(Math.random()*17);
+                        if(item[GetItem] == 0)
+                        {
+                            for(int a = 0 ; a<6;a++)
+                            {
+                                if(bag[a] == -1)
+                                {
+                                    bag[a] = GetItem;
+                                    takenItem++;
+                                    item[GetItem] = 1;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
                 }
                 else if(GoDice>=1)
                 {
                     context2.setText("你從設陷者的纏繞中掙脫並逃開，受到 1 顆骰的物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight - dice(1);
+                    GetHurt(0,-dice(1));
                 }
                 else
                 {
                     context2.setText("你被困住了！受到 1 顆骰的物理傷害，立刻結束回合");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight - dice(1);
+                    GetHurt(0,-dice(1));
                 }
                 break;
             case 18:
@@ -2281,18 +2712,24 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 GoDice = dice(character.chara[characterIndex[myClientID]].Might[character.chara[characterIndex[myClientID]].currentMight]);
                 if(GoDice>=2)
                     howmuch++;
-                else
+                else {
+                    GetHurt(3,-1);
                     context2.setText("失去１級力量屬性。");
+                }
                 GoDice = dice(character.chara[characterIndex[myClientID]].Speed[character.chara[characterIndex[myClientID]].currentSpeed]);
                 if(GoDice>=2)
                     howmuch++;
-                else
+                else {
+                    GetHurt(4,-1);
                     context2.setText("失去１級速度屬性。");
+                }
                 GoDice = dice(character.chara[characterIndex[myClientID]].Knowledge[character.chara[characterIndex[myClientID]].currentKnowledge]);
                 if(GoDice>=2)
                     howmuch++;
-                else
+                else {
+                    GetHurt(6,-1);
                     context2.setText("失去１級知識屬性。");
+                }
                 if(howmuch==3)
                 {
                     context2.setText("你通過了考驗，取得 1 級最低的屬性。");
@@ -2300,17 +2737,17 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     {
                         if(character.chara[characterIndex[myClientID]].currentMight == a)
                         {
-                            character.chara[characterIndex[myClientID]].currentMight++;
+                            GetHurt(3,1);
                             break;
                         }
                         if(character.chara[characterIndex[myClientID]].currentSpeed == a)
                         {
-                            character.chara[characterIndex[myClientID]].currentSpeed++;
+                            GetHurt(4,1);
                             break;
                         }
                         if(character.chara[characterIndex[myClientID]].currentKnowledge == a)
                         {
-                            character.chara[characterIndex[myClientID]].currentKnowledge++;
+                            GetHurt(6,1);
                             break;
                         }
                     }
@@ -2325,12 +2762,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else if(GoDice>=2)
                 {
                     context2.setText("暗影擦過了你的腿，失去 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(5,-1);
                 }
                 else
                 {
                     context2.setText("暗影抓到了你，並釋放一股令人麻痺的冷風穿過你的下體，失去１級速度。");
-                    character.chara[characterIndex[myClientID]].currentSpeed--;
+                    GetHurt(4,-1);
                 }
                 break;
             case 20:
@@ -2338,16 +2775,17 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice>=5)
                 {
                     context2.setText("你閃避鼠群，取得 1 級速度屬性。");
-                    character.chara[characterIndex[myClientID]].currentSpeed++;
+                    GetHurt(4,1);
                 }
                 else if(GoDice>=2)
                 {
-                    context2.setText(" 鼠群擊倒了你，棄掉 1 張物品牌。");
+                    context2.setText(" 鼠群擊倒了你，失去 1 級力量屬性。");
+                    GetHurt(3,-1);
                 }
                 else
                 {
                     context2.setText("牠們太多了！失去 1 級速度屬性。");
-                    character.chara[characterIndex[myClientID]].currentSpeed--;
+                    GetHurt(4,-1);
                 }
                 break;
             case 21:
@@ -2359,10 +2797,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else
                 {
                     context2.setText("一團史萊姆落到你身上，受到 1 顆骰的物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight - dice(1);
+                    GetHurt(0,-dice(1));
                 }
                 break;
             case 22:
@@ -2374,36 +2809,76 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else if(GoDice>=2)
                 {
                     context2.setText("打鬥結束了，但付出了一些代價，失去 1 級力量。");
-                    character.chara[characterIndex[myClientID]].currentMight--;
+                    GetHurt(3,-1);
                 }
                 else
                 {
                     context2.setText("看來你需要一個眼罩！失去 1 級速度。");
-                    character.chara[characterIndex[myClientID]].currentSpeed--;
+                    GetHurt(4,-1);
                 }
                 break;
             case 23:
                 context2.setText("獲得一件物品");
+                while (true)
+                {
+                    if(takenItem == 17) //物品最多17樣 多了就不能拿了
+                        break;
+                    int GetItem = (int)(Math.random()*17);
+                    if(item[GetItem] == 0)
+                    {
+                        for(int a = 0 ; a<6;a++)
+                        {
+                            if(bag[a] == -1)
+                            {
+                                bag[a] = GetItem;
+                                takenItem++;
+                                item[GetItem] = 1;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
                 break;
             case 24:
                 GoDice = dice(character.chara[characterIndex[myClientID]].Speed[character.chara[characterIndex[myClientID]].currentSpeed]);
                 if(GoDice>=4)
                 {
-                    context2.setText("你閃避了殭屍，並在它身上的黏液跟 膿胞爆開前跑得老遠，在殘骸中你發現了一個有用的物品，抽 1 張物品牌。");
+                    context2.setText("你閃避了殭屍，並在它身上的黏液跟 膿胞爆開前跑得老遠，在殘骸中你發現了一個有用的物品，或得一件物品。");
+                    while (true)
+                    {
+                        if(takenItem == 17) //物品最多17樣 多了就不能拿了
+                            break;
+                        int GetItem = (int)(Math.random()*17);
+                        if(item[GetItem] == 0)
+                        {
+                            for(int a = 0 ; a<6;a++)
+                            {
+                                if(bag[a] == -1)
+                                {
+                                    bag[a] = GetItem;
+                                    takenItem++;
+                                    item[GetItem] = 1;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
                 }
                 else if(GoDice>=2)
                 {
                     context2.setText("你試著逃離，但還是沐浴在殭屍爆破 後的血雨當中，失去 1 級速度。");
-                    character.chara[characterIndex[myClientID]].currentSpeed--;
+                    GetHurt(4,-1);
                 }
                 else
                 {
                     context2.setText("殭屍抓住了你，並且把你炸得亂七八 糟。失去 1 級力量。");
-                    character.chara[characterIndex[myClientID]].currentMight--;
+                    GetHurt(3,-1);
                 }
                 break;
             case 25:
-                context2.setText("你交給暴徒一件物品，隨機棄掉 1 張物品牌。");
+                context2.setText("你交給暴徒一件物品，沒有事情發生。");
                 break;
             case 26:
                 GoDice = dice(character.chara[characterIndex[myClientID]].Might[character.chara[characterIndex[myClientID]].currentMight]);
@@ -2414,15 +2889,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else if(GoDice>=1)
                 {
                     context2.setText("咳嗽還會持續一段時間，失去 1 級力量。");
-                    character.chara[characterIndex[myClientID]].currentMight--;
+                    GetHurt(3,-1);
                 }
                 else
                 {
                     context2.setText("你的傷更嚴重了。受到 1 顆骰的物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight - dice(1);
+                    GetHurt(0,-dice(1));
                 }
                 break;
             case 27:
@@ -2430,7 +2902,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice>=4)
                 {
                     context2.setText("你抵抗了跟隨光芒前進的衝動，取得 1 級知識。");
-                    character.chara[characterIndex[myClientID]].currentKnowledge++;
+                    GetHurt(6,1);
                 }
                 else if(GoDice>=2)
                 {
@@ -2439,10 +2911,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else
                 {
                     context2.setText("你跟著鬼火帶著走撞到了牆，受到 1 顆骰的物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight - dice(1);
+                    GetHurt(0,-dice(1));
                 }
                 break;
             case 28:
@@ -2450,12 +2919,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice>=4)
                 {
                     context2.setText("你認出那個殺手是沙洛佛克，並記得他已經被逮捕受審了，你安心了許多，取得 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity++;
+                    GetHurt(5,1);
                 }
                 else
                 {
                     context2.setText("這個景象令你渾身發抖，失去 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(5,-1);
                 }
                 break;
             case 29:
@@ -2463,12 +2932,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice == 4)
                 {
                     context2.setText("她低語著被禁止的知識，取得 1 級知識。");
-                    character.chara[characterIndex[myClientID]].currentKnowledge++;
+                    GetHurt(6,1);
                 }
                 else if(GoDice == 3)
                 {
                     context2.setText("他提供了一個保護法術。取得 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity++;
+                    GetHurt(5,1);
                 }
                 else if(GoDice == 2)
                 {
@@ -2477,7 +2946,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else if(GoDice == 1)
                 {
                     context2.setText("她預言死亡及毀滅即將到來，失去 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(5,-1);
                 }
                 else if(GoDice == 0)
                 {
@@ -2490,14 +2959,14 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice == 0)
                 {
                     context2.setText("你摧毀它，你失去 1 級力量但取得 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentMight--;
-                    character.chara[characterIndex[myClientID]].currentSanity++;
+                    GetHurt(3,-1);
+                    GetHurt(5,1);
                 }
                 else if(GoDice == 1)
                 {
                     context2.setText("你保護它，你失去 1 級心智但取得 1 級力量。");
-                    character.chara[characterIndex[myClientID]].currentSanity--;
-                    character.chara[characterIndex[myClientID]].currentMight++;
+                    GetHurt(5,-1);
+                    GetHurt(3,1);
                 }
                 break;
             case 31:
@@ -2505,20 +2974,17 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice >= 4)
                 {
                     context2.setText("這只是一個可怕的幻象，取得 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity++;
+                    GetHurt(5,1);
                 }
                 else if(GoDice>=2)
                 {
                     context2.setText("這景象讓你心神不寧，失去 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(5,-1);
                 }
                 else
                 {
                     context2.setText("當蟲子爬過你時，你大聲尖叫著，受到 1 顆骰的物理傷害。");
-                    if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
-                        character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed - dice(1);
-                    else
-                        character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight - dice(1);
+                    GetHurt(0,-dice(1));
                 }
                 break;
             case 32:
@@ -2526,12 +2992,12 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice >= 4)
                 {
                     context2.setText("你發現這景象異常地吸引著你，取得 1 級力量。");
-                    character.chara[characterIndex[myClientID]].currentMight++;
+                    GetHurt(3,1);
                 }
                 else if(GoDice>=2)
                 {
                     context2.setText("你發現這景象嚇到，失去 1 級心智。");
-                    character.chara[characterIndex[myClientID]].currentSanity--;
+                    GetHurt(5,-1);
                 }
                 else
                 {
@@ -2540,7 +3006,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                     if(GoDice>character.chara[characterIndex[myClientID]].Sanity[character.chara[characterIndex[myClientID]].currentSanity])
                     {
                         GoDice = GoDice - character.chara[characterIndex[myClientID]].Sanity[character.chara[characterIndex[myClientID]].currentSanity];
-                        character.chara[characterIndex[myClientID]].currentSanity = character.chara[characterIndex[myClientID]].currentSanity - GoDice;
+                        GetHurt(5,-GoDice);
                     }
                 }
                 break;
@@ -2610,7 +3076,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 if(GoDice>=4)
                 {
                     context2.setText("你撐住了，獲得1級力量");
-                    character.chara[characterIndex[myClientID]].currentMight++;
+                    GetHurt(3,1);
                 }
                 else if(GoDice>=3)
                 {
@@ -2619,18 +3085,54 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
                 else
                 {
                     context2.setText("你被往下沖走了，失去 1 級力量。");
-                    character.chara[characterIndex[myClientID]].currentMight--;
+                    GetHurt(3,-1);
                 }
                 break;
         }
     }
 
-    //判定骰子
+    // 判定骰子
     public int dice(int get) {
         int total = 0;
+        int redice = 0;
+        int redice2 = 0;
         for(int a =0;a<get;a++)
         {
-            total = total + (int)(Math.random()*3);
+            int nowget = (int)(Math.random()*3);
+            if(nowget == 0)
+                redice++;
+            total = total + nowget;
+        }
+        if(diceagain)
+        {
+            for(int a =0;a<redice;a++)
+            {
+                int nowget = (int)(Math.random()*3);
+                if(nowget == 0)
+                    redice2++;
+                total = total + nowget;
+            }
+            if(redice2>2)
+                redice2 = 2;
+            GetHurt(1,-redice2);
+            diceagain = false;
+        }
+        if(moredice2)
+        {
+            for(int a =0;a<2;a++)
+            {
+                total = total + (int)(Math.random()*3);
+            }
+            GetHurt(1,-1);
+            moredice2 = false;
+        }
+        if(nextpow)
+        {
+            for(int a =0;a<2;a++)
+            {
+                total = total + (int)(Math.random()*3);
+            }
+            nextpow = false;
         }
         if(NextDiceZero)
         {
@@ -2640,7 +3142,7 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
         return total;
     }
 
-    //更新數值
+    // 更新數值
     @SuppressLint("SetTextI18n")
     public void reset() {
         TextView myMight1 = findViewById(R.id.myMight);
@@ -2653,6 +3155,70 @@ public class MainActivity extends Activity implements JoystickView.JoystickListe
             mySanity1.setText(Integer.toString(character.chara[characterIndex[myClientID]].currentSanity));
             myKnowledge1.setText(Integer.toString(character.chara[characterIndex[myClientID]].currentKnowledge));
         });
+    }
 
+    // 受到傷害 物理傷害 0, 精神傷害 1, 總體傷害 2, 力量傷害 3, 速度傷害 4, 心智傷害 5, 知識傷害 6
+    public void GetHurt(int whichKind, int damage) {
+        if(lessphyhurt && (whichKind == 0 || whichKind == 3 || whichKind == 4) && damage<0)
+            damage = damage +1;
+        if(lessspihurt && (whichKind == 1 || whichKind == 5 || whichKind == 6) && damage<0)
+            damage = damage +1;
+        if(nexthurt && damage < 0)
+        {
+            damage = 0;
+            nexthurt = false;
+        }
+        switch (whichKind)
+        {
+            case 0:
+                if(defend3 && damage<0 && dice(character.chara[characterIndex[myClientID]].Speed[character.chara[characterIndex[myClientID]].currentSpeed])>=3)
+                    defend3 = false;
+                else if(character.chara[characterIndex[myClientID]].currentSpeed>character.chara[characterIndex[myClientID]].currentMight)
+                    character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed + damage;
+                else
+                    character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight + damage;
+                break;
+            case 1:
+                if(character.chara[characterIndex[myClientID]].currentKnowledge>character.chara[characterIndex[myClientID]].currentSanity)
+                    character.chara[characterIndex[myClientID]].currentKnowledge = character.chara[characterIndex[myClientID]].currentKnowledge + damage;
+                else
+                    character.chara[characterIndex[myClientID]].currentSanity = character.chara[characterIndex[myClientID]].currentSanity + damage;
+                break;
+            case 3:
+                if(defend3 && damage<0 && dice(character.chara[characterIndex[myClientID]].Speed[character.chara[characterIndex[myClientID]].currentSpeed])>=3)
+                    defend3 = false;
+                else
+                    character.chara[characterIndex[myClientID]].currentMight = character.chara[characterIndex[myClientID]].currentMight + damage;
+                break;
+            case 4:
+                if(defend3 && damage<0 && dice(character.chara[characterIndex[myClientID]].Speed[character.chara[characterIndex[myClientID]].currentSpeed])>=3)
+                    defend3 = false;
+                else
+                    character.chara[characterIndex[myClientID]].currentSpeed = character.chara[characterIndex[myClientID]].currentSpeed + damage;
+                break;
+            case 5:
+                character.chara[characterIndex[myClientID]].currentSanity = character.chara[characterIndex[myClientID]].currentSanity + damage;
+                break;
+            case 6:
+                character.chara[characterIndex[myClientID]].currentKnowledge = character.chara[characterIndex[myClientID]].currentKnowledge + damage;
+                break;
+        }
+        reset();
+        packetMaker();
+        if(character.chara[characterIndex[myClientID]].currentSpeed <= 0 || character.chara[characterIndex[myClientID]].currentKnowledge <= 0 || character.chara[characterIndex[myClientID]].currentSanity <= 0 || character.chara[characterIndex[myClientID]].currentMight  <= 0)
+        {
+            //腳色死亡 跳出死亡畫面
+            //傳給server說已經死亡
+        }
+    }
+
+    //攻擊
+    public void attack(int attackwho)
+    {
+        hurthowmuch = dice(character.chara[characterIndex[attackwho]].Might[character.chara[characterIndex[attackwho]].currentMight]) - character.chara[characterIndex[myClientID]].Might[character.chara[characterIndex[myClientID]].currentMight];
+        if(hurthowmuch >= 0)
+            GetHurt(0,-hurthowmuch);
+        //else
+            // 傳送給 attackwho 讓他受到 hurthowmuch 點傷害
     }
 }

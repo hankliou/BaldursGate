@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="600dp"
                 android:layout_height="350dp"
-                android:background="@drawable/house_on_the_hill"
+                android:background="@drawable/map"
                 xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 對準中心用的 -->
     <TextView android:layout_width="wrap_content"
