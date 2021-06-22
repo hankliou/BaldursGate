@@ -98,6 +98,7 @@
         <ImageView android:layout_width="70dp"
                    android:layout_height="70dp"
                    android:layout_marginLeft="40dp"
+                   android:scaleType="centerCrop"
                    android:id="@+id/onepic">
 
         </ImageView>
@@ -153,6 +154,7 @@
         <ImageView android:layout_width="70dp"
                    android:layout_height="70dp"
                    android:layout_marginLeft="40dp"
+                   android:scaleType="centerCrop"
                    android:layout_below="@+id/onepic"
                    android:id="@+id/twopic">
 
@@ -209,6 +211,7 @@
         <ImageView android:layout_width="70dp"
                    android:layout_height="70dp"
                    android:layout_marginLeft="40dp"
+                   android:scaleType="centerCrop"
                    android:layout_below="@+id/twopic"
                    android:id="@+id/threepic">
 
@@ -265,6 +268,7 @@
         <ImageView android:layout_width="70dp"
                    android:layout_height="70dp"
                    android:layout_marginLeft="40dp"
+                   android:scaleType="centerCrop"
                    android:layout_below="@+id/threepic"
                    android:id="@+id/fourpic">
 
@@ -415,6 +419,24 @@
                 android:onClick="roundOver">
 
         </Button>
+        <!-- 挖 -->
+        <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_above="@+id/roundOver"
+                android:layout_toLeftOf="@+id/roundOver"
+                android:id="@+id/dig">
+
+        </ImageButton>
+        <!-- 星星 -->
+        <ImageView android:layout_width="70dp"
+                   android:layout_height="70dp"
+                   android:layout_toRightOf="@id/one"
+                   android:src="@drawable/star"
+                   android:id="@+id/star"
+                   android:scaleType="centerCrop">
+
+        </ImageView>
         <!-- 骰子按鈕 -->
         <ImageButton android:layout_width="100dp"
                      android:layout_height="100dp"
@@ -422,7 +444,20 @@
                      android:scaleType="centerCrop"
                      android:layout_toLeftOf="@id/joystick2"
                      android:layout_marginBottom="180dp"
-                     android:onClick="newPlate" android:layout_alignParentBottom="true">
+                     android:onClick="newPlate"
+                     android:id="@+id/new_plate_btn"
+                     android:layout_alignParentBottom="true">
+
+        </ImageButton>
+        <!-- 書按鈕 -->
+        <ImageButton android:layout_width="100dp"
+                     android:layout_height="70dp"
+                     android:layout_above="@id/roundOver"
+                     android:layout_alignParentRight="true"
+                     android:scaleType="centerCrop"
+                     android:src="@drawable/book"
+                     android:onClick="bookBtn"
+                     android:id="@+id/book">
 
         </ImageButton>
         <!-- 包包按鈕 -->
@@ -444,7 +479,8 @@
                      android:layout_above="@id/attributes"
                      android:layout_toLeftOf="@id/joystick2"
                      android:id="@+id/atk"
-                     android:onClick="attackBtn" android:src="@drawable/sword">
+                     android:onClick="attackBtn"
+                     android:src="@drawable/sword">
 
         </ImageButton>
     </RelativeLayout>

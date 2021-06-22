@@ -25,10 +25,10 @@ public class Character {
         // 綠色
         chara[1] = new Chara();
         chara[1].Name = "";
-        chara[1].Might =     new int[]{0,2,2,3,3,4,4,6,7};
-        chara[1].Speed =     new int[]{0,4,4,4,4,5,6,8,8};
-        chara[1].Sanity =    new int[]{0,3,4,5,5,6,6,7,8};
-        chara[1].Knowledge = new int[]{0,1,2,3,4,4,5,5,5};
+        chara[1].Might =     new int[]{ 0,2,2,3,3,4,4,6,7 };
+        chara[1].Speed =     new int[]{ 0,4,4,4,4,5,6,8,8 };
+        chara[1].Sanity =    new int[]{ 0,3,4,5,5,6,6,7,8 };
+        chara[1].Knowledge = new int[]{ 0,1,2,3,4,4,5,5,5 };
         chara[1].iniMight = 4;
         chara[1].iniSpeed = 4;
         chara[1].iniSanity = 3;

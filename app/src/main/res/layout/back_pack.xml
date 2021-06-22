@@ -29,34 +29,34 @@
     </ImageButton>
 
 
-    <Button android:layout_width="72dp"
+    <ImageButton android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_marginLeft="250dp"
             android:layout_marginTop="30dp"
             android:id="@+id/item1"
     />
-    <Button android:layout_width="72dp"
+    <ImageButton android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_toRightOf="@id/item1"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="30dp"
             android:id="@+id/item2"
     />
-    <Button android:layout_width="72dp"
+    <ImageButton android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_toRightOf="@id/item2"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="30dp"
             android:id="@+id/item3"
     />
-    <Button android:layout_width="72dp"
+    <ImageButton android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_marginLeft="250dp"
             android:layout_below="@id/item1"
             android:layout_marginTop="15dp"
             android:id="@+id/item4"
     />
-    <Button android:layout_width="72dp"
+    <ImageButton android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/item4"
@@ -64,7 +64,7 @@
             android:layout_below="@id/item2"
             android:id="@+id/item5"
     />
-    <Button android:layout_width="72dp"
+    <ImageButton android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/item5"
